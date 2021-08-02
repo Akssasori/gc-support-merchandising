@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.mappers;
 
 import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
+import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
 import com.globo.producao.apoio.models.Program;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,4 +20,7 @@ public interface ProgramMapper {
             @Mapping(target = "program", source = "programRequestDto.program")
     })
     Program programRequestDtoToProgram(ProgramRequestDto programRequestDto);
+
+
+    ProgramResponseDto programToProgramResponseDTO(Program program);
 }

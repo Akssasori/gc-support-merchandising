@@ -1,15 +1,12 @@
 package com.globo.producao.apoio.services.Impls;
 
-import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.models.Program;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import com.globo.producao.apoio.repositories.ProgramRepository;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
-import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ProgramServiceImpl implements ProgramService {
 
     /**
@@ -19,16 +16,16 @@ public class ProgramServiceImpl implements ProgramService {
     private ProgramRepository programRepository;
 
     @Override
-    public Page<Program> listPageAll(
-            final ProgramRequestDto programRequestDto,
-            final Pageable pageable)throws FindAllDataException{
+    public Program insert(final Program program) throws Exception {
         try{
-            return programRepository.listPageAll(programRequestDto, pageable);
-        }catch (Exception e){
-            throw new FindAllDataException(e.getMessage());
-        }
 
+            return programRepository.save(program);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
+
 
 
 
