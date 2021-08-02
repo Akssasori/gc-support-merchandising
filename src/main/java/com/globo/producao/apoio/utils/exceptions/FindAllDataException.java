@@ -1,8 +1,8 @@
-package utils.exceptions;
+package com.globo.producao.apoio.utils.exceptions;
 
 
-import utils.messages.LocaleContext;
-import utils.messages.MessagesEnum;
+import com.globo.producao.apoio.utils.messages.LocaleContext;
+import com.globo.producao.apoio.utils.messages.MessagesEnum;
 
 public class FindAllDataException extends Exception {
 

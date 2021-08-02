@@ -1,4 +1,4 @@
-package utils.messages;
+package com.globo.producao.apoio.utils.messages;
 
 
 import com.globo.producao.apoio.configs.MessagesConfig;

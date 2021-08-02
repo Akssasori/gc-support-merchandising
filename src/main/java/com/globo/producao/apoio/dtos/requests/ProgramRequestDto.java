@@ -1,4 +1,4 @@
-package dtos.requests;
+package com.globo.producao.apoio.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProgramRequestDto implements Serializable {
-
-    /**
-     * Program id.
-     */
-    private Long id;
 
     /**
      * Program name.
