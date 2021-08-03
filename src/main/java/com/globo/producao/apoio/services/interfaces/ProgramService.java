@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.services.interfaces;
 
 import com.globo.producao.apoio.models.Program;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 
 public interface ProgramService {
 
@@ -12,6 +13,6 @@ public interface ProgramService {
      * @return return a program inserted
      * @see Program
      */
-    Program insert(Program program) throws Exception;
+    Program insert(Program program) throws InsertDataException;
 
 }

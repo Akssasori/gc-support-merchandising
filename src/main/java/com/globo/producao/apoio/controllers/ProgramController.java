@@ -5,6 +5,7 @@ import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
 import com.globo.producao.apoio.mappers.ProgramMapper;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.messages.LocaleContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProgramController {
     @ResponseBody
     public ResponseEntity<ProgramResponseDto> insertProgram
             (@Valid @RequestBody final ProgramRequestDto
-                                                     programRequestDto)throws Exception{
+                                                     programRequestDto)throws InsertDataException {
 
         Program program = programService.insert(
                 ProgramMapper.INSTANCE.programRequestDtoToProgram(
