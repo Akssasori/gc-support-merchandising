@@ -26,5 +26,9 @@ public interface ProgramMapper {
 
     ProgramResponseDto programToProgramResponseDTO(Program program);
 
+    /**
+     *Mapper findAll
+     */
     List<ProgramResponseDto> programListToProgramResponseDtoList(List<Program>programs);
+
 }
