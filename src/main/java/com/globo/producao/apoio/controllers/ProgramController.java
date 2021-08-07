@@ -78,7 +78,7 @@ public class ProgramController {
             (@PathVariable final Long id) throws FindDataException {
 
         ProgramResponseDto programResponseDto =
-                ProgramMapper.INSTANCE.programToProgramResponseDTO(programService.findById(id).getProgram());
+                ProgramMapper.INSTANCE.programToProgramResponseDTO(programService.findById(id));
 
         log.info(LocaleContext.format("response.success",
                 (new Object() {
