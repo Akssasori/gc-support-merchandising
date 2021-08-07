@@ -8,6 +8,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface ProgramMapper {
 
@@ -23,4 +25,6 @@ public interface ProgramMapper {
 
 
     ProgramResponseDto programToProgramResponseDTO(Program program);
+
+    List<ProgramResponseDto> programListToProgramResponseDtoList(List<Program>programs);
 }
