@@ -26,9 +26,19 @@ import static org.springframework.http.ResponseEntity.status;
 @RequestMapping("/support/rest/api/v1")
 public class ProgramController {
 
+    /**
+     * Program Service object used by Program Controller.
+     */
     @Autowired
     private ProgramService programService;
 
+    /**
+     * API POST: Insert program method.
+     *
+     * @param programRequestDto
+     * @return returns a program inserted.
+     * @throws InsertDataException
+     */
 
     @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -52,6 +62,16 @@ public class ProgramController {
         return status(HttpStatus.CREATED).body(programResponseDto);
     }
 
+    /**
+     * API GET:listAllProgram, Return an ResponseEntity object with the
+     * list of filtered creatives.
+     *
+     * @param program program
+     * @return returns a ResponseEntity object with the list
+     * programResponseDtoList
+     * @see ResponseEntity
+     */
+
     @GetMapping(value = "/listProgram")
     public ResponseEntity<List<ProgramResponseDto>> listAllProgram( Program program)
             throws FindAllDataException {
@@ -72,6 +92,16 @@ public class ProgramController {
             return status(HttpStatus.CREATED).body(programResponseDtoList);
         }
     }
+
+    /**
+     * API GET:listProgram{id}, Return specific program by id
+     * The Program id argument is used to search and filter
+     * program.
+     *
+     * @param id program id
+     * @return returns a ResponseEntity object with the program select by id
+     * @see ResponseEntity
+     */
 
     @GetMapping(value = "/listProgram/{id}")
     public ResponseEntity<ProgramResponseDto> getProgramById
