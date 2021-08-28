@@ -10,6 +10,7 @@ import com.globo.producao.apoio.utils.exceptions.FindDataException;
 import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.messages.LocaleContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -103,9 +105,9 @@ public class ProgramController {
      * @see ResponseEntity
      */
 
-    @GetMapping(value = "/listProgram/{id}")
+    @GetMapping(value = "/listProgram/id")
     public ResponseEntity<ProgramResponseDto> getProgramById
-            (@PathVariable final Long id) throws FindDataException {
+            (@RequestParam final Long id) throws FindDataException {
 
         ProgramResponseDto programResponseDto =
                 ProgramMapper.INSTANCE.programToProgramResponseDTO(programService.findById(id));
@@ -114,6 +116,66 @@ public class ProgramController {
                 (new Object() {
                 }.getClass().getEnclosingMethod().getName()),
                 HttpStatus.OK.toString()));
+
+        return status(HttpStatus.OK).body(programResponseDto);
+    }
+
+//    @PutMapping(value = "/edit-program/{id}")
+//    public ResponseEntity<ProgramResponseDto> updateProgramById(
+//            @Valid @RequestBody final ProgramRequestDto programRequestDto,
+//            @PathVariable final Long id) throws FindDataException, InsertDataException {
+//
+//        Program program = programService.findById(id);
+//
+//        ProgramResponseDto programResponseDto = null;
+//
+//        if(Objects.nonNull(program) & program.getId() != 0 ) {
+//
+//                programService.insert(ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto));
+//
+//                programResponseDto = ProgramMapper.INSTANCE.programToProgramResponseDTO(program);
+//
+//                log.info(LocaleContext.format("response.success",
+//                        (new Object() {
+//                        }.getClass().getEnclosingMethod().getName()),
+//                        HttpStatus.CREATED.toString()));
+//
+//        } else {
+//
+//             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//
+//        }
+//
+//        return status(HttpStatus.OK).body(programResponseDto);
+//    }
+
+    @PutMapping(value = "/edit-program/{id}")
+    public ResponseEntity<ProgramResponseDto> updateProgramById(
+            @Valid @RequestBody final ProgramRequestDto programRequestDto,
+            @PathVariable final Long id) throws FindDataException, InsertDataException {
+
+        Program program = programService.findById(id);
+
+        ProgramResponseDto programResponseDto = null;
+
+        if(Objects.nonNull(program) & program.getId() != 0 ) {
+
+            programService.insert(ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto));
+
+            programResponseDto = ProgramMapper.INSTANCE.programToProgramResponseDTO(program);
+
+            BeanUtils.copyProperties(program, programRequestDto);
+
+            log.info(LocaleContext.format("response.success",
+                    (new Object() {
+                    }.getClass().getEnclosingMethod().getName()),
+                    HttpStatus.CREATED.toString()));
+
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
 
         return status(HttpStatus.OK).body(programResponseDto);
     }
