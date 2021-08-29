@@ -120,6 +120,7 @@ public class ProgramController {
         return status(HttpStatus.OK).body(programResponseDto);
     }
 
+
 //    @PutMapping(value = "/edit-program/{id}")
 //    public ResponseEntity<ProgramResponseDto> updateProgramById(
 //            @Valid @RequestBody final ProgramRequestDto programRequestDto,
@@ -156,29 +157,23 @@ public class ProgramController {
 
         Program program = programService.findById(id);
 
-        ProgramResponseDto programResponseDto = null;
+        ProgramResponseDto programResponseDto = new ProgramResponseDto();
 
-        if(Objects.nonNull(program) & program.getId() != 0 ) {
+        BeanUtils.copyProperties(programRequestDto, program);
 
-            programService.insert(ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto));
+        BeanUtils.copyProperties(program, programResponseDto);
 
-            programResponseDto = ProgramMapper.INSTANCE.programToProgramResponseDTO(program);
-
-            BeanUtils.copyProperties(program, programRequestDto);
+        programService.insert(program);
 
             log.info(LocaleContext.format("response.success",
                     (new Object() {
                     }.getClass().getEnclosingMethod().getName()),
-                    HttpStatus.CREATED.toString()));
+                    HttpStatus.OK.toString()));
 
-        } else {
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        }
 
         return status(HttpStatus.OK).body(programResponseDto);
-    }
+
+        }
 
 
 
