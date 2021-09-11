@@ -18,6 +18,11 @@ public enum MessagesEnum {
     ERROR_FIND_DATA("enum.error.find.data"),
 
     /**
+     * Error message for update data.
+     */
+    ERROR_UPDATE_DATA("enum.error.update.data"),
+
+    /**
      * Message error for find all data.
      */
     ERROR_FIND_ALL_DATA("enum.error.find_all.data");

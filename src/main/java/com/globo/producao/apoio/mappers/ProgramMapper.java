@@ -17,14 +17,24 @@ public interface ProgramMapper {
      * Instance of StationMapper class.
      */
     ProgramMapper INSTANCE = Mappers.getMapper(ProgramMapper.class);
-
-    @Mappings({
-            @Mapping(target = "program", source = "programRequestDto.program")
-    })
+//
+//    @Mappings({
+//            @Mapping(target = "program", source = "programRequestDto.program")
+//    })
     Program programRequestDtoToProgram(ProgramRequestDto programRequestDto);
 
 
     ProgramResponseDto programToProgramResponseDTO(Program program);
+
+//    default ProgramResponseDto programToProgramResponseDTO(Program program) {
+//        if (program == null) {
+//            return null;
+//        } else {
+//            ProgramResponseDto.ProgramResponseDtoBuilder programResponseDto = ProgramResponseDto.builder();
+//            programResponseDto.program(program.getProgram());
+//            return programResponseDto.build();
+//        }
+//    }
 
     /**
      *Mapper findAll

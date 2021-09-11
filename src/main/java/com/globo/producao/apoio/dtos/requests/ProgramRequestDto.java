@@ -15,6 +15,11 @@ import java.io.Serializable;
 public class ProgramRequestDto implements Serializable {
 
     /**
+     * Program id.
+     */
+    private Long id;
+
+    /**
      * Program name.
      */
     private String program;
