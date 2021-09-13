@@ -4,10 +4,7 @@ import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.repositories.ProgramRepository;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
-import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
-import com.globo.producao.apoio.utils.exceptions.FindDataException;
-import com.globo.producao.apoio.utils.exceptions.InsertDataException;
-import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
+import com.globo.producao.apoio.utils.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,28 +50,30 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Override
     public Program Update(ProgramRequestDto programRequestDto) throws UpdateDataException {
-
         Program program = null;
-
         try {
-
             Optional<Program> programDB = programRepository.findById(programRequestDto.getId());
-
             if (programDB.isPresent()) {
-
                 program = programDB.get();
-
                 program.setProgram(programRequestDto.getProgram());
                 program.setId(programRequestDto.getId());
-
-                return programRepository.save(program);
             }
+                return programRepository.save(program);
         } catch (Exception e){
             throw new UpdateDataException(e.getMessage());
-
         }
-        return null;
+
     }
 
+    @Override
+    public void Delete(Long id) throws DeleteDataException {
+        try {
+            if (programRepository.existsById(id) == true) {
+                programRepository.deleteById(id);
+            }
+        } catch (Exception e) {
+            throw new DeleteDataException(e.getMessage());
+        }
+    }
 
 }

@@ -23,6 +23,11 @@ public enum MessagesEnum {
     ERROR_UPDATE_DATA("enum.error.update.data"),
 
     /**
+     * Error message for delete data.
+     */
+    ERROR_DELETE_DATA("enum.error.delete.data"),
+
+    /**
      * Message error for find all data.
      */
     ERROR_FIND_ALL_DATA("enum.error.find_all.data");

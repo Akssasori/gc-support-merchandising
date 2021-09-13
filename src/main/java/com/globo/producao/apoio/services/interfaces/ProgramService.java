@@ -2,10 +2,7 @@ package com.globo.producao.apoio.services.interfaces;
 
 import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.models.Program;
-import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
-import com.globo.producao.apoio.utils.exceptions.FindDataException;
-import com.globo.producao.apoio.utils.exceptions.InsertDataException;
-import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
+import com.globo.producao.apoio.utils.exceptions.*;
 
 import java.util.List;
 
@@ -47,6 +44,11 @@ public interface ProgramService {
      */
     Program Update(ProgramRequestDto programRequestDto) throws UpdateDataException;
 
-
-
+    /**
+     * Delete program filtered bu id.
+     *
+     * @param id program id to find
+     * @see Program
+     */
+    void Delete(Long id) throws DeleteDataException;
 }

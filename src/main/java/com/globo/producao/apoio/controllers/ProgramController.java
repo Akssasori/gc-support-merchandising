@@ -1,17 +1,14 @@
 package com.globo.producao.apoio.controllers;
 
+
 import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
 import com.globo.producao.apoio.mappers.ProgramMapper;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
-import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
-import com.globo.producao.apoio.utils.exceptions.FindDataException;
-import com.globo.producao.apoio.utils.exceptions.InsertDataException;
-import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
+import com.globo.producao.apoio.utils.exceptions.*;
 import com.globo.producao.apoio.utils.messages.LocaleContext;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -91,9 +87,9 @@ public class ProgramController {
             log.info(LocaleContext.format("response.success",
                     (new Object() {
                     }.getClass().getEnclosingMethod().getName()),
-                    HttpStatus.CREATED.toString()));
+                    HttpStatus.OK.toString()));
 
-            return status(HttpStatus.CREATED).body(programResponseDtoList);
+            return status(HttpStatus.OK).body(programResponseDtoList);
 
         }
 
@@ -124,7 +120,7 @@ public class ProgramController {
 
     }
 
-    @PutMapping(value = "/edit-program/test/{id}")
+    @PutMapping(value = "/edit-program/{id}")
     public ResponseEntity<ProgramResponseDto> updateProgramByIdTest (
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
@@ -137,32 +133,23 @@ public class ProgramController {
                 }.getClass().getEnclosingMethod().getName()),
                 HttpStatus.OK.toString()));
 
-                return status(HttpStatus.OK).body(programResponseDto);
+        return status(HttpStatus.OK).body(programResponseDto);
 
     }
 
-    @PutMapping(value = "/edit-program/{id}")
-    public ResponseEntity<ProgramResponseDto> updateProgramById (
-            @Valid @RequestBody final ProgramRequestDto programRequestDto,
-            @PathVariable final Long id) throws FindDataException, InsertDataException {
+    @DeleteMapping(value = "/delete-program/{id}")
+    public ResponseEntity<?> deleteProgram (
+            @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
-        Program program = programService.findById(id);
+        programService.Delete(id);
 
-        ProgramResponseDto programResponseDto = new ProgramResponseDto();
+        log.info(LocaleContext.format("response.success",
+                (new Object() {
+                }.getClass().getEnclosingMethod().getName()),
+                HttpStatus.OK.toString()));
 
-        BeanUtils.copyProperties(programRequestDto, program);
+        return ResponseEntity.ok().build();
 
-        BeanUtils.copyProperties(program, programResponseDto);
-
-        programService.insert(program);
-
-            log.info(LocaleContext.format("response.success",
-                    (new Object() {
-                    }.getClass().getEnclosingMethod().getName()),
-                    HttpStatus.OK.toString()));
-
-        return status(HttpStatus.OK).body(programResponseDto);
-
-        }
+    }
 
 }
