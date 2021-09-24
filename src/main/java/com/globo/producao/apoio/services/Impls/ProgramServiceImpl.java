@@ -6,6 +6,9 @@ import com.globo.producao.apoio.repositories.ProgramRepository;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,9 +34,18 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public List<Program> findAll() throws FindAllDataException {
+    public List<Program> findPrograms() throws FindAllDataException {
         try{
             return programRepository.findAll();
+        }catch(Exception e){
+            throw new FindAllDataException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Page<Program> findPagePrograms(Pageable pageable) throws FindAllDataException {
+        try{
+            return programRepository.findAll(pageable);
         }catch(Exception e){
             throw new FindAllDataException(e.getMessage());
         }
@@ -70,10 +82,14 @@ public class ProgramServiceImpl implements ProgramService {
         try {
             if (programRepository.existsById(id) == true) {
                 programRepository.deleteById(id);
+            } else{
+                ResponseEntity.notFound();
             }
         } catch (Exception e) {
             throw new DeleteDataException(e.getMessage());
         }
     }
+
+
 
 }

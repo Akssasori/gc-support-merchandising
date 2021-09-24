@@ -3,6 +3,8 @@ package com.globo.producao.apoio.services.interfaces;
 import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.utils.exceptions.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,7 +26,15 @@ public interface ProgramService {
      * @return return a list with all programs
      * @see List <Program>
      */
-    List<Program> findAll() throws FindAllDataException;
+    List<Program> findPrograms() throws FindAllDataException;
+
+    /**
+     * Returns all program.
+     *
+     * @return return a list with all programs
+     * @see List <Program>
+     */
+    Page<Program> findPagePrograms(Pageable pageable) throws FindAllDataException;
 
     /**
      * Returns a program filtered by id.
@@ -51,4 +61,5 @@ public interface ProgramService {
      * @see Program
      */
     void Delete(Long id) throws DeleteDataException;
+
 }
