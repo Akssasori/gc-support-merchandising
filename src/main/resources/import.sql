@@ -3,15 +3,15 @@
 -- -----------------------------------------------------
 --START TRANSACTION;
 
-INSERT INTO program (program) VALUES ('Mais voce');
-INSERT INTO program (program) VALUES ('Caldeirao');
-INSERT INTO program (program) VALUES ('Encontro');
-INSERT INTO program (program) VALUES ('Zorra');
-INSERT INTO program (program) VALUES ('Jornal Nacional');
-INSERT INTO program (program) VALUES ('Globo esporte');
-INSERT INTO program (program) VALUES ('Imperio');
-INSERT INTO program (program) VALUES ('Domingão');
-INSERT INTO program (program) VALUES ('Zero1');
+INSERT INTO program (program) VALUES ('Programa 1');
+INSERT INTO program (program) VALUES ('Programa 2');
+INSERT INTO program (program) VALUES ('Programa 3');
+INSERT INTO program (program) VALUES ('Programa 4');
+INSERT INTO program (program) VALUES ('Programa 5');
+INSERT INTO program (program) VALUES ('Programa 6');
+INSERT INTO program (program) VALUES ('Programa 7');
+INSERT INTO program (program) VALUES ('Programa 8');
+INSERT INTO program (program) VALUES ('Programa 9');
 INSERT INTO program (program) VALUES ('Programa 10');
 INSERT INTO program (program) VALUES ('Programa 11');
 INSERT INTO program (program) VALUES ('Programa 12');

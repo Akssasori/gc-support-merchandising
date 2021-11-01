@@ -8,6 +8,7 @@ import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
 import com.globo.producao.apoio.utils.messages.LocaleContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @Slf4j
 @RequestMapping("/support/rest/api/v1")
+@RequiredArgsConstructor
 public class ProgramController {
 
     /**
      * Program Service object used by Program Controller.
      */
-    @Autowired
-    private ProgramService programService;
+    private final ProgramService programService;
 
     /**
      * API POST: Insert program method.
@@ -66,26 +67,26 @@ public class ProgramController {
         return status(HttpStatus.CREATED).body(programResponseDto);
     }
 
-    @GetMapping(value = "/page-program")
-    public ResponseEntity<Page<ProgramResponseDto>> pageProgram(
-            @RequestParam(required = false) final Long id,
-            @RequestParam(required = false) final String program,
-            @PageableDefault(sort = "id", direction = Sort.Direction.ASC)
-            final Pageable pageable) throws FindAllDataException{
-
-        Page<Program> programPage = programService.findPagePrograms(pageable);
-
-        Page<ProgramResponseDto> programResponseDtoPage = ProgramMapper.INSTANCE
-                .mapEntityPageIntoDTOPage(pageable,programPage);
-
-        log.info(LocaleContext.format("response.success",
-                (new Object() {
-                }.getClass().getEnclosingMethod().getName()),
-                HttpStatus.OK.toString()));
-
-        return status(HttpStatus.OK).body(programResponseDtoPage);
-
-    }
+//    @GetMapping(value = "/page-program")
+//    public ResponseEntity<Page<ProgramResponseDto>> pageProgram(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size,
+//            @PageableDefault(sort = "id", direction = Sort.Direction.ASC)
+//            final Pageable pageable) throws FindAllDataException{
+//
+//        Page<Program> programPage = programService.findPagePrograms(pageable);
+//
+//        Page<ProgramResponseDto> programResponseDtoPage = ProgramMapper.INSTANCE
+//                .mapEntityPageIntoDTOPage(pageable,programPage);
+//
+//        log.info(LocaleContext.format("response.success",
+//                (new Object() {
+//                }.getClass().getEnclosingMethod().getName()),
+//                HttpStatus.OK.toString()));
+//
+//        return status(HttpStatus.OK).body(programResponseDtoPage);
+//
+//    }
 
     /**
      * API GET:listAllProgram, Return an ResponseEntity object with the
@@ -151,8 +152,9 @@ public class ProgramController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
 
-        ProgramResponseDto programResponseDto = ProgramMapper.INSTANCE.programToProgramResponseDTO(
-                programService.Update(programRequestDto));
+        Program program = programService.Update(id,ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto));
+
+        ProgramResponseDto programResponseDto = ProgramMapper.INSTANCE.programToProgramResponseDTO(program);
 
         log.info(LocaleContext.format("response.success",
                 (new Object() {

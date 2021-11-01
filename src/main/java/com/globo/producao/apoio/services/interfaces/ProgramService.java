@@ -49,10 +49,11 @@ public interface ProgramService {
      * Returns a program filtered by id.
      *
      * @param programRequestDto program id to find
+     * @param id
      * @return program update
      * @see Program
      */
-    Program Update(ProgramRequestDto programRequestDto) throws UpdateDataException;
+    Program Update(Long id, Program program) throws UpdateDataException;
 
     /**
      * Delete program filtered bu id.

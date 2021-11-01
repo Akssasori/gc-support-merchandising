@@ -5,6 +5,7 @@ import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.repositories.ProgramRepository;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,66 +13,67 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class ProgramServiceImpl implements ProgramService {
 
     /**
      * Program repository.
      */
-    @Autowired
-    private ProgramRepository programRepository;
+    private final ProgramRepository programRepository;
 
     @Override
     public Program insert(final Program program) throws InsertDataException {
-        try{
+        try {
             return programRepository.save(program);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new InsertDataException(e.getMessage());
         }
     }
 
     @Override
     public List<Program> findPrograms() throws FindAllDataException {
-        try{
+        try {
             return programRepository.findAll();
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new FindAllDataException(e.getMessage());
         }
     }
 
     @Override
     public Page<Program> findPagePrograms(Pageable pageable) throws FindAllDataException {
-        try{
+        try {
             return programRepository.findAll(pageable);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new FindAllDataException(e.getMessage());
         }
     }
 
     @Override
     public Program findById(Long id) throws FindDataException {
-        try{
+        try {
             return programRepository.findById(id).get();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new FindDataException(e.getMessage());
         }
     }
 
     @Override
-    public Program Update(ProgramRequestDto programRequestDto) throws UpdateDataException {
-        Program program = null;
+    public Program Update(Long id, Program program) throws UpdateDataException {
+
+        Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+
         try {
-            Optional<Program> programDB = programRepository.findById(programRequestDto.getId());
-            if (programDB.isPresent()) {
-                program = programDB.get();
-                program.setProgram(programRequestDto.getProgram());
-                program.setId(programRequestDto.getId());
-            }
-                return programRepository.save(program);
-        } catch (Exception e){
+//            if (Objects.nonNull(programDB)) {
+                programDB.setProgram(program.getProgram());
+                programDB.setId(id);
+//            }
+            return programRepository.save(programDB);
+        } catch (Exception e) {
             throw new UpdateDataException(e.getMessage());
         }
 
@@ -80,16 +82,15 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public void Delete(Long id) throws DeleteDataException {
         try {
-            if (programRepository.existsById(id) == true) {
+            if (programRepository.existsById(id)) {
                 programRepository.deleteById(id);
-            } else{
+            } else {
                 ResponseEntity.notFound();
             }
         } catch (Exception e) {
             throw new DeleteDataException(e.getMessage());
         }
     }
-
 
 
 }

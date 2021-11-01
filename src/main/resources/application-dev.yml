@@ -1,0 +1,31 @@
+ad:
+  security:
+    publicKey: ${SECURITY_PUBLIC_KEY}
+
+server:
+  port: 8888
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${DBAAS_MYSQL_PASSWORD}
+    url: jdbc:${DBAAS_MYSQL_ENDPOINT}?serverTimezone=UTC&useSSL=false
+    username: ${DBAAS_MYSQL_USER}
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+#app:
+#  gc-middleware-security:
+#    url: http://gc-md-security-dev.gcloud.dev.globoi.com
+#    name: gc-middleware-security
+#  gc-middleware-commercial-linear:
+#    url: http://gc-md-commercial-linear-dev.gcloud.dev.globoi.com
+#    name: gc-middleware-commercial-linear
+#  gc-middleware-creative-player:
+#    url: http://gc-md-creative-player-dev.gcloud.dev.globoi.com
+#    name: gc-middleware-creative-player
+
