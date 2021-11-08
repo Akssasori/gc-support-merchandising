@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -22,18 +21,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Program implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Program id.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Program name.
-     */
     @NotEmpty(message = "Program may not be empty")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     @Column(nullable = false)

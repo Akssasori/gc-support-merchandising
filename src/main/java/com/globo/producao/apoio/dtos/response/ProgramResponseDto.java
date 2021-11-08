@@ -16,7 +16,6 @@ public class ProgramResponseDto {
     /**
      * Program id.
      */
-    @JsonIgnore
     private Long id;
 
     /**
