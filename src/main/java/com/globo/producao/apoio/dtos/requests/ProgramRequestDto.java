@@ -14,11 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ProgramRequestDto implements Serializable {
 
-//    /**
-//     * Program id.
-//     */
-//    private Long id;
-
     /**
      * Program name.
      */

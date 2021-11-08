@@ -1,29 +1,22 @@
 package com.globo.producao.apoio.services.Impls;
 
-import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.repositories.ProgramRepository;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class ProgramServiceImpl implements ProgramService {
 
-    /**
-     * Program repository.
-     */
     private final ProgramRepository programRepository;
 
     @Override
@@ -36,7 +29,7 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public List<Program> findPrograms() throws FindAllDataException {
+    public List<Program> listPrograms() throws FindAllDataException {
         try {
             return programRepository.findAll();
         } catch (Exception e) {
