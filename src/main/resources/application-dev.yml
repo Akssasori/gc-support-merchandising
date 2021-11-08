@@ -9,7 +9,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ${DBAAS_MYSQL_PASSWORD}
-    url: jdbc:${DBAAS_MYSQL_ENDPOINT}?serverTimezone=UTC&useSSL=false
+    url: jdbc:${DBAAS_MYSQL_ENDPOINT}?allowPublicKeyRetrieval=true&serverTimezone=UTC&useSSL=false
     username: ${DBAAS_MYSQL_USER}
   jpa:
     generate-ddl: false
