@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
-@RequestMapping("/support")
+@RequestMapping("/program")
 @RequiredArgsConstructor
 public class ProgramController {
 
@@ -32,40 +34,19 @@ public class ProgramController {
 
     @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProgramResponseDto> insertProgram
+    public ResponseEntity<ProgramResponseDto> saveProgram
             (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
-                programService.insert(mapper.programRequestDtoToProgram(programRequestDto))));
+        return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
+                programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
-//    @GetMapping(value = "/page-program")
-//    public ResponseEntity<Page<ProgramResponseDto>> pageProgram(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size,
-//            @PageableDefault(sort = "id", direction = Sort.Direction.ASC)
-//            final Pageable pageable) throws FindAllDataException{
-//
-//        Page<Program> programPage = programService.findPagePrograms(pageable);
-//
-//        Page<ProgramResponseDto> programResponseDtoPage = ProgramMapper.INSTANCE
-//                .mapEntityPageIntoDTOPage(pageable,programPage);
-//
-//        log.info(LocaleContext.format("response.success",
-//                (new Object() {
-//                }.getClass().getEnclosingMethod().getName()),
-//                HttpStatus.OK.toString()));
-//
-//        return status(HttpStatus.OK).body(programResponseDtoPage);
-//
-//    }
-
-    @GetMapping(value = "/listProgram")
-    public ResponseEntity<List<ProgramResponseDto>> listAllProgram ()
+    @GetMapping
+    public ResponseEntity<List<ProgramResponseDto>> getPrograms()
             throws FindAllDataException {
 
-            return ResponseEntity.status(HttpStatus.OK).body(mapper
-                    .programListToProgramResponseDtoList(programService.listPrograms()));
+            return status(HttpStatus.OK).body(mapper
+                    .programListToProgramResponseDtoList(programService.findAll()));
 
         }
 
@@ -73,7 +54,7 @@ public class ProgramController {
     public ResponseEntity<ProgramResponseDto> getProgramById
             (@RequestParam final Long id) throws FindDataException {
 
-        return ResponseEntity.status(HttpStatus.OK).body(mapper
+        return status(HttpStatus.OK).body(mapper
                 .programToProgramResponseDTO(programService.findById(id)));
 
     }
@@ -83,7 +64,7 @@ public class ProgramController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
 
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
+        return status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
                 (programService.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
 
     }

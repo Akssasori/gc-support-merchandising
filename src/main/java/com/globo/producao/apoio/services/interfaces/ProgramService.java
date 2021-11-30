@@ -10,11 +10,9 @@ import java.util.List;
 public interface ProgramService {
 
 
-    Program insert(Program program) throws InsertDataException;
+    Program save(Program program) throws InsertDataException;
 
-    List<Program> listPrograms() throws FindAllDataException;
-
-    Page<Program> findPagePrograms(Pageable pageable) throws FindAllDataException;
+    List<Program> findAll() throws FindAllDataException;
 
     Program findById(Long id) throws FindDataException;
 

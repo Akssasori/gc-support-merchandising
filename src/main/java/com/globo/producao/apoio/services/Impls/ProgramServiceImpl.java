@@ -6,7 +6,9 @@ import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class ProgramServiceImpl implements ProgramService {
     private final ProgramRepository programRepository;
 
     @Override
-    public Program insert(final Program program) throws InsertDataException {
+    public Program save(final Program program) throws InsertDataException {
         try {
             return programRepository.save(program);
         } catch (Exception e) {
@@ -29,7 +31,7 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public List<Program> listPrograms() throws FindAllDataException {
+    public List<Program> findAll() throws FindAllDataException {
         try {
             return programRepository.findAll();
         } catch (Exception e) {
@@ -37,19 +39,11 @@ public class ProgramServiceImpl implements ProgramService {
         }
     }
 
-    @Override
-    public Page<Program> findPagePrograms(Pageable pageable) throws FindAllDataException {
-        try {
-            return programRepository.findAll(pageable);
-        } catch (Exception e) {
-            throw new FindAllDataException(e.getMessage());
-        }
-    }
 
     @Override
     public Program findById(Long id) throws FindDataException {
         try {
-            return programRepository.findById(id).get();
+            return programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
         } catch (Exception e) {
             throw new FindDataException(e.getMessage());
         }
