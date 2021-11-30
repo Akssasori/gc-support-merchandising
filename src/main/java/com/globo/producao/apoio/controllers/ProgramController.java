@@ -27,14 +27,16 @@ public class ProgramController {
 
     private final ProgramService programService;
 
+    private final ProgramMapper mapper;
+
 
     @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProgramResponseDto> insertProgram
             (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProgramMapper.INSTANCE.programToProgramResponseDTO(
-                programService.insert(ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto))));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
+                programService.insert(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
 //    @GetMapping(value = "/page-program")
@@ -62,7 +64,7 @@ public class ProgramController {
     public ResponseEntity<List<ProgramResponseDto>> listAllProgram ()
             throws FindAllDataException {
 
-            return ResponseEntity.status(HttpStatus.OK).body(ProgramMapper.INSTANCE
+            return ResponseEntity.status(HttpStatus.OK).body(mapper
                     .programListToProgramResponseDtoList(programService.listPrograms()));
 
         }
@@ -71,7 +73,7 @@ public class ProgramController {
     public ResponseEntity<ProgramResponseDto> getProgramById
             (@RequestParam final Long id) throws FindDataException {
 
-        return ResponseEntity.status(HttpStatus.OK).body(ProgramMapper.INSTANCE
+        return ResponseEntity.status(HttpStatus.OK).body(mapper
                 .programToProgramResponseDTO(programService.findById(id)));
 
     }
@@ -81,8 +83,8 @@ public class ProgramController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
 
-        return ResponseEntity.status(HttpStatus.OK).body(ProgramMapper.INSTANCE.programToProgramResponseDTO
-                (programService.Update(id, ProgramMapper.INSTANCE.programRequestDtoToProgram(programRequestDto))));
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
+                (programService.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
 
     }
 
