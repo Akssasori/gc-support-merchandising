@@ -14,21 +14,21 @@ spring:
     properties:
       hibernate:
         hbm2ddl:
-          import_files: ./sqlmocks/token-type.sql, ./sqlmocks/restricted-content.sql, ./sqlmocks/creative-received-origin.sql, ./sqlmocks/creative-status.sql, ./sqlmocks/auto-tagging-status.sql, ./sqlmocks/creative-type.sql, ./sqlmocks/institution-type.sql, ./sqlmocks/evaluation-type.sql, ./sqlmocks/creative-disapproval-reason.sql, ./sqlmocks/context-area.sql, ./sqlmocks/commercial-area.sql, ./sqlmocks/metadata-category.sql, ./sqlmocks/metadata-category-scope.sql, ./sqlmocks/creative_institution.sql, ./sqlmocks/creative.sql, ./sqlmocks/creative-scope-commercial-area.sql, ./sqlmocks/commercial-area-linear.sql, ./sqlmocks/commercial-area-digital.sql, ./sqlmocks/commercial-area-linear-station.sql, ./sqlmocks/metadata.sql, ./sqlmocks/creative-metadata.sql, ./sqlmocks/creative-attachments.sql, ./sqlmocks/user.sql, ./sqlmocks/creative-restriction.sql, ./sqlmocks/restriction-content.sql, ./sqlmocks/commercial-area-linear-restriction.sql, ./sqlmocks/restriction-valid-period.sql
+          import_files: ./sqlmocks/token-type.sql, ./sqlmocks/restricted-content.sql,
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
 
-app:
-  gc-middleware-security:
-    url: ${URL_GC_MIDDLEWARE_SECURITY}
-    name: gc-middleware-security
-  gc-middleware-commercial-linear:
-    url: ${URL_GC_MIDDLEWARE_COMMERCIAL_LINEAR}
-    name: gc-middleware-commercial-linear
-  gc-middleware-creative-player:
-    url: ${URL_GC_MIDDLEWARE_CREATIVE_PLAYER}
-    name: gc-middleware-creative-player
-  gc-operation-siscom-configuration:
-    url: ${URL_GC_OPERATION_SISCOM_CONFIGURATION}
-    name: gc-operation-siscom-configuration
+#app:
+#  gc-middleware-security:
+#    url: ${URL_GC_MIDDLEWARE_SECURITY}
+#    name: gc-middleware-security
+#  gc-middleware-commercial-linear:
+#    url: ${URL_GC_MIDDLEWARE_COMMERCIAL_LINEAR}
+#    name: gc-middleware-commercial-linear
+#  gc-middleware-creative-player:
+#    url: ${URL_GC_MIDDLEWARE_CREATIVE_PLAYER}
+#    name: gc-middleware-creative-player
+#  gc-operation-siscom-configuration:
+#    url: ${URL_GC_OPERATION_SISCOM_CONFIGURATION}
+#    name: gc-operation-siscom-configuration

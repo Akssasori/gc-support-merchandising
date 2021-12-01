@@ -49,7 +49,7 @@ public class ProgramController {
 
     }
 
-    @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProgramResponseDto> saveProgram
             (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {

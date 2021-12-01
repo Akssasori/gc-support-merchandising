@@ -1,19 +1,10 @@
-package com.globo.gc.operation.creative.controllers;
+package com.globo.producao.apoio.controllers;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.globo.gc.operation.creative.config.BaseTest;
-import com.globo.gc.operation.creative.mappers.AutoTaggingStatusMapper;
-import com.globo.gc.operation.creative.models.AutoTaggingStatus;
-import com.globo.gc.operation.creative.services.interfaces.AutoTaggingStatusService;
-import com.globo.gc.operation.creative.utils.exceptions.FindAllDataException;
-
+import com.globo.producao.apoio.config.BaseTest;
+import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
+import com.globo.producao.apoio.mappers.ProgramMapper;
+import com.globo.producao.apoio.services.interfaces.ProgramService;
+import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,41 +13,33 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = AutoTaggingStatusController.class)
+import java.util.List;
+
+import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(controllers = ProgramControllerIT.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class AutoTaggingStatusControllerIT extends BaseTest {
-        private final String URI_LIST_AUTO_TAGGING_STATUS = "/rest/api/v1/auto" + "-tagging-status";
+public class ProgramControllerIT extends BaseTest {
 
-        @MockBean
-        AutoTaggingStatusService autoTaggingStatusService;
+    private final String URI_LIST_PROGRAM = "/program";
 
-        @MockBean
-        AutoTaggingStatusMapper autoTaggingStatusMapper;
+    @MockBean
+    ProgramService programService;
 
-        @Autowired
-        private MockMvc mockMvc;
+    @MockBean
+    ProgramMapper mapper;
 
-        @Test
-        @DisplayName("Should return All auto Tagging Status with success.")
-        public void shouldReturnAllAutoTaggingStatusControllerWithSuccess() throws Exception {
+    @Autowired
+    private MockMvc mockMvc;
 
-                List<AutoTaggingStatus> lstAutoTaggingStatus = new ArrayList<>();
-                lstAutoTaggingStatus.add(AutoTaggingStatus.builder().id(1L).name("Incompatível").build());
-                lstAutoTaggingStatus.add(AutoTaggingStatus.builder().id(2L).name("Aguardando recebimento").build());
-                lstAutoTaggingStatus.add(AutoTaggingStatus.builder().id(3L).name("Recebido").build());
+    @Test
+    @DisplayName("Should return list programs with success.")
+    public void shouldReturnListProgramResponseDtoWithSuccess() throws Exception {
 
-                doReturn(lstAutoTaggingStatus).when(autoTaggingStatusService).findAll();
+        doReturn(List.of(ProgramResponseDto.class)).when(programService).findAll();
 
-                mockMvc.perform(get(URI_LIST_AUTO_TAGGING_STATUS)).andExpect(status().isOk());
-
-        }
-
-        @Test
-        @DisplayName("Should return internal server error when occurs " + "FindAllDataException.")
-        public void shouldReturnInternalServerErrorWhenOccursFindAllDataException() throws Exception {
-
-                doThrow(new FindAllDataException("Test")).when(autoTaggingStatusService).findAll();
-
-                mockMvc.perform(get(URI_LIST_AUTO_TAGGING_STATUS)).andExpect(status().isInternalServerError());
-        }
+        mockMvc.perform(get(URI_LIST_PROGRAM)).andExpect(status().isOk());
+    }
 }
