@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.controllers;
 
 
+import com.globo.producao.apoio.dtos.requests.ClientRequestDTO;
 import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.dtos.response.ClientResponseDTO;
 import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
@@ -40,48 +41,48 @@ public class ClientController {
     }
 
     @GetMapping(value = "/list-by/id")
-    public ResponseEntity<ProgramResponseDto> getProgramById
+    public ResponseEntity<ClientResponseDTO> getClientById
             (@RequestParam final Long id) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
-                .programToProgramResponseDTO(programService.findById(id)));
+                .clientToClientResponseDTO(service.findById(id)));
 
     }
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProgramResponseDto> saveClient
-            (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
+    public ResponseEntity<ClientResponseDTO> saveClient
+            (@Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws Exception {
 
-        return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
-                programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
+        return status(HttpStatus.CREATED).body(mapper.clientToClientResponseDTO(
+                service.save(mapper.clientRequestDTOToClient(clientRequestDTO))));
     }
 
     @PutMapping(value = "/edit/{id}")
-    public ResponseEntity<ProgramResponseDto> updateProgramById (
+    public ResponseEntity<ClientResponseDTO> updateClientById (
             @PathVariable(value = "id") final Long id,
-            @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
+            @Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws UpdateDataException {
 
-        return status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
-                (programService.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
+        return status(HttpStatus.OK).body(mapper.clientToClientResponseDTO
+                (service.update(id, mapper.clientRequestDTOToClient(clientRequestDTO))));
 
     }
 
     @DeleteMapping(value = "/delete-program/{id}")
-    public ResponseEntity<Program> deleteProgram (
+    public ResponseEntity<Program> deleteClient (
             @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
-        programService.Delete(id);
+        service.delete(id);
 
         return ResponseEntity.ok().build();
 
     }
 
-    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
-    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
-
-        return mapper.programToProgramResponseDTOPage(programService.pageProgram(pageNumber,pageSize));
-    }
+//    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
+//    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
+//
+//        return mapper.programToProgramResponseDTOPage(programService.pageProgram(pageNumber,pageSize));
+//    }
 
 
 
