@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,6 @@ public class ProgramServiceImpl implements ProgramService {
         }
     }
 
-
     @Override
     public Program findById(Long id) throws FindDataException {
         try {
@@ -55,10 +53,8 @@ public class ProgramServiceImpl implements ProgramService {
         Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
         try {
-//            if (Objects.nonNull(programDB)) {
-                programDB.setProgram(program.getProgram());
-                programDB.setId(id);
-//            }
+            programDB.setProgram(program.getProgram());
+            programDB.setId(id);
             return programRepository.save(programDB);
         } catch (Exception e) {
             throw new UpdateDataException(e.getMessage());
@@ -77,6 +73,12 @@ public class ProgramServiceImpl implements ProgramService {
         } catch (Exception e) {
             throw new DeleteDataException(e.getMessage());
         }
+    }
+
+    @Override
+    public Page<Program> pageProgram(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return programRepository.findAll(pageable);
     }
 
 

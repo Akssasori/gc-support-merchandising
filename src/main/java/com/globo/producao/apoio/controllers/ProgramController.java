@@ -12,6 +12,7 @@ import com.globo.producao.apoio.utils.exceptions.FindDataException;
 import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,24 +32,13 @@ public class ProgramController {
 
     private final ProgramMapper mapper;
 
-
-    @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<ProgramResponseDto> saveProgram
-            (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
-
-        return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
-                programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
-    }
-
     @GetMapping
-    public ResponseEntity<List<ProgramResponseDto>> getPrograms()
-            throws FindAllDataException {
+    public ResponseEntity<List<ProgramResponseDto>> getPrograms() throws FindAllDataException {
 
-            return status(HttpStatus.OK).body(mapper
-                    .programListToProgramResponseDtoList(programService.findAll()));
+        return status(HttpStatus.OK).body(mapper
+                .programListToProgramResponseDtoList(programService.findAll()));
 
-        }
+    }
 
     @GetMapping(value = "/listProgram/id")
     public ResponseEntity<ProgramResponseDto> getProgramById
@@ -57,6 +47,15 @@ public class ProgramController {
         return status(HttpStatus.OK).body(mapper
                 .programToProgramResponseDTO(programService.findById(id)));
 
+    }
+
+    @PostMapping(value = "/program", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<ProgramResponseDto> saveProgram
+            (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
+
+        return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
+                programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
     @PutMapping(value = "/edit-program/{id}")
@@ -78,5 +77,17 @@ public class ProgramController {
         return ResponseEntity.ok().build();
 
     }
+
+    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
+    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
+
+        return mapper.programToProgramResponseDTOPage(programService.pageProgram(pageNumber,pageSize));
+    }
+
+
+
+
+
+
 
 }

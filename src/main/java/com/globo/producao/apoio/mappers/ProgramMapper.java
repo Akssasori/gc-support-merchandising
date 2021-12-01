@@ -4,16 +4,12 @@ import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
 import com.globo.producao.apoio.models.Program;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProgramMapper {
-
-    ProgramMapper INSTANCE = Mappers.getMapper(ProgramMapper.class);
-
 
     Program programRequestDtoToProgram(ProgramRequestDto programRequestDto);
 
@@ -21,5 +17,8 @@ public interface ProgramMapper {
 
     List<ProgramResponseDto> programListToProgramResponseDtoList(List<Program> programs);
 
+    default Page<ProgramResponseDto> programToProgramResponseDTOPage(Page<Program> programs){
+        return programs.map(this::programToProgramResponseDTO);
+    }
 
 }

@@ -3,7 +3,6 @@ package com.globo.producao.apoio.services.interfaces;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.utils.exceptions.*;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -20,4 +19,5 @@ public interface ProgramService {
 
     void Delete(Long id) throws DeleteDataException;
 
+    Page<Program> pageProgram(Integer pageNumber, Integer pageSize);
 }
