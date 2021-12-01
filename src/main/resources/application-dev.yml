@@ -1,6 +1,6 @@
 ad:
   security:
-    publicKey: ${SECURITY_PUBLIC_KEY}
+    publicKey: ${SECURITY_PUBLIC_KEY_DEV}
 
 server:
   port: 8888

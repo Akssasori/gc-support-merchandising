@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 public class ProgramControllerIT extends BaseTest {
 
-    private final String URI_LIST_PROGRAM = "/program";
+    private final String URI_LIST_PROGRAM = "http://localhost:8888/program";
 
     @MockBean
     ProgramService programService;
