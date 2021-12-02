@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class Program implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "Program may not be empty")

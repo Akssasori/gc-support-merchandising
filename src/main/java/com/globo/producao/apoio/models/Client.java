@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Client implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")

@@ -50,7 +50,7 @@ public class ClientServiceImpl implements ClientService {
 
         try{
             clientDB.setName(client.getName());
-            clientDB.setId(client.getId());
+            clientDB.setId(id);
             return clientRepository.save(clientDB);
         } catch (Exception e) {
             throw new UpdateDataException(e.getMessage());
