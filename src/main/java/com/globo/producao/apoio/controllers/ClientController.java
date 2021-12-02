@@ -51,7 +51,7 @@ public class ClientController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ClientResponseDTO> saveClient
+    public ResponseEntity<ClientResponseDTO> createClient
             (@Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws Exception {
 
         return status(HttpStatus.CREATED).body(mapper.clientToClientResponseDTO(
@@ -68,7 +68,7 @@ public class ClientController {
 
     }
 
-    @DeleteMapping(value = "/delete-program/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Program> deleteClient (
             @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
