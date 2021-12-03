@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientRequestDTO implements Serializable {
+public class AgencyRequestDTO implements Serializable {
 
     private Long id;
     private String name;

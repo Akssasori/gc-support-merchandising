@@ -13,6 +13,5 @@ import lombok.NoArgsConstructor;
 public class ClientResponseDTO {
 
     private Long id;
-
     private String name;
 }

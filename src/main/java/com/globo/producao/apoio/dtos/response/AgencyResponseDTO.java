@@ -1,4 +1,4 @@
-package com.globo.producao.apoio.dtos.requests;
+package com.globo.producao.apoio.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientRequestDTO implements Serializable {
+public class AgencyResponseDTO implements Serializable {
 
     private Long id;
     private String name;

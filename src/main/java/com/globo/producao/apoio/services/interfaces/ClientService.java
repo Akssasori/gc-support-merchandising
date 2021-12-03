@@ -3,7 +3,6 @@ package com.globo.producao.apoio.services.interfaces;
 import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.FindDataException;
-import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 
 import java.util.List;

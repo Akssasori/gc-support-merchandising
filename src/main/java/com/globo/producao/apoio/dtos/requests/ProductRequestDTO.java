@@ -12,9 +12,8 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientRequestDTO implements Serializable {
+public class ProductRequestDTO implements Serializable {
 
-    private Long id;
     private String name;
 
 }
