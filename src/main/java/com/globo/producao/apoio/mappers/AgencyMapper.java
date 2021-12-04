@@ -17,7 +17,7 @@ public interface AgencyMapper {
 
     AgencyResponseDTO agencyToAgencyResponseDTO(Agency agency);
 
-    AgencyResponseDTO agencyListToAgencyResponseDTO(List<Agency> agencies );
+    List<AgencyResponseDTO> agencyListToAgencyResponseDTO(List<Agency> agencies );
 
 
 }
