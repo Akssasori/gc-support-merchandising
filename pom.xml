@@ -52,6 +52,7 @@
 			<artifactId>ad-lib-security</artifactId>
 			<version>${ad-lib-security.version}</version>
 		</dependency>
+
 		<!-- End Security deps -->
 
 		<dependency>
