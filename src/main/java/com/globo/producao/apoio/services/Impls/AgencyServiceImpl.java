@@ -41,7 +41,7 @@ public class AgencyServiceImpl implements AgencyService {
 
         try{
             agencyDB.setId(agencyId);
-            agencyDB.setName(agencyDB.getName());
+            agencyDB.setName(agency.getName());
             repository.save(agencyDB);
         } catch (Exception e) {
             throw new UpdateDataException(e.getMessage());
