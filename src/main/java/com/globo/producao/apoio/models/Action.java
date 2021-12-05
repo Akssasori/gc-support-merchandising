@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -41,6 +40,22 @@ public class Action implements Serializable {
     @JsonFormat(pattern = "HH:mm:ss")
 //    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private Duration duration;
+
+    @OneToOne
+    @JoinColumn(name = "program_id")
+    private Program program;
+
+    @OneToOne
+    @JoinColumn(name = "agency_id")
+    private Agency agency;
+
+    @OneToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
 }
