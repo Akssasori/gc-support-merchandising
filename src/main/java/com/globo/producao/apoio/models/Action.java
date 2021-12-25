@@ -39,9 +39,9 @@ public class Action implements Serializable {
 //    @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "program_id")
-//    private Program program;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "program_id")
+    private Program program;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agency_id")
@@ -50,10 +50,10 @@ public class Action implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
-//
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "product_id")
-//    private Product product;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     private Boolean payTVFlag;
 

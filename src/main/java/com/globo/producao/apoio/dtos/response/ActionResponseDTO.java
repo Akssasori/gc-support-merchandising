@@ -35,13 +35,13 @@ public class ActionResponseDTO implements Serializable {
 
     private Duration duration;
 
-//    private ProgramResponseDto program;
+    private ProgramResponseDto program;
 
     private AgencyResponseDTO agency;
 
     private ClientResponseDTO client;
-//
-//    private ProductResponseDTO product;
+
+    private ProductResponseDTO product;
 
     private Boolean payTVFlag;
 

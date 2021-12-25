@@ -48,3 +48,12 @@ INSERT INTO client (id, name) VALUES (9,'Client 9');
 INSERT INTO client (id, name) VALUES (10,'Client 10');
 
 --COMMIT;
+
+----START TRANSACTION;
+--
+--INSERT INTO client (id, name, idSiscom) VALUES (1,'123 VIAGENS E TURISMO LTDA',419043);
+--INSERT INTO client (id, name, idSiscom) VALUES (2,'3 M DO BRASIL', 115198);
+--INSERT INTO client (id, name, idSiscom) VALUES (3,'3 MILENIO', 441695);
+--
+--
+----COMMIT;

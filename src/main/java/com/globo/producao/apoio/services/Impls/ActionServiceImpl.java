@@ -63,10 +63,10 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
             actionDB.setDuration(action.getDuration());
-//            actionDB.setProgram(action.getProgram());
+            actionDB.setProgram(action.getProgram());
             actionDB.setAgency(action.getAgency());
             actionDB.setClient(action.getClient());
-//            actionDB.setProduct(action.getProduct());
+            actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
         } catch (Exception e) {
 

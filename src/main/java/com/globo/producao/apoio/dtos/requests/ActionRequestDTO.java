@@ -41,13 +41,13 @@ public class ActionRequestDTO implements Serializable {
     @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-//    private ProgramRequestDto program;
+    private ProgramRequestDto program;
 
     private AgencyRequestDTO agency;
 
     private ClientRequestDTO client;
 
-//    private ProductRequestDTO product;
+    private ProductRequestDTO product;
 
     private Boolean payTVFlag;
 
