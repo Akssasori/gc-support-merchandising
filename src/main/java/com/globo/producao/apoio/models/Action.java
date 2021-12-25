@@ -28,34 +28,32 @@ public class Action implements Serializable {
 
     private String description;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime reviewDate;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-//    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+//    @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "program_id")
-    private Program program;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "program_id")
+//    private Program program;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "agency_id")
     private Agency agency;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "client_id")
+//    private Client client;
+//
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "product_id")
+//    private Product product;
 
     private Boolean payTVFlag;
 

@@ -13,7 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -25,8 +27,14 @@ public class ActionServiceImpl implements ActionService {
 
 
     @Override
+    @Transactional
     public Action save(Action action) {
-        return repository.save(action);
+
+        Duration(action);
+        Action actionSave = repository.save(action);
+
+
+        return actionSave;
     }
 
     @Override
@@ -53,10 +61,10 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
             actionDB.setDuration(action.getDuration());
-            actionDB.setProgram(action.getProgram());
+//            actionDB.setProgram(action.getProgram());
             actionDB.setAgency(action.getAgency());
-            actionDB.setClient(action.getClient());
-            actionDB.setProduct(action.getProduct());
+//            actionDB.setClient(action.getClient());
+//            actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
         } catch (Exception e) {
 
@@ -85,5 +93,12 @@ public class ActionServiceImpl implements ActionService {
     public Page<Action> pageAction(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return repository.findAll(pageable);
+    }
+
+    private void Duration(final Action action){
+
+        Duration duration = Duration.between(action.getStartTime(), action.getEndTime());
+        action.setDuration(duration);
+
     }
 }

@@ -1,6 +1,5 @@
 package com.globo.producao.apoio.dtos.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.globo.producao.apoio.models.Agency;
 import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.models.Product;
@@ -28,25 +27,21 @@ public class ActionResponseDTO implements Serializable {
 
     private String description;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime reviewDate;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime startTime;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime endTime;
 
-    @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
 
-    private Program program;
+//    private ProgramResponseDto program;
 
-    private Agency agency;
+    private AgencyResponseDTO agency;
 
-    private Client client;
-
-    private Product product;
+//    private ClientResponseDTO client;
+//
+//    private ProductResponseDTO product;
 
     private Boolean payTVFlag;
 

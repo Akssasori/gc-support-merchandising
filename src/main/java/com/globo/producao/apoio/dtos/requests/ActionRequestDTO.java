@@ -1,6 +1,8 @@
 package com.globo.producao.apoio.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.globo.producao.apoio.models.Agency;
 import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.models.Product;
@@ -26,31 +28,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ActionRequestDTO implements Serializable {
 
-    private Long id;
-
     private TypeActionEnum typeAction;
 
     private String description;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime reviewDate;
+    @JsonIgnore
+    private LocalDateTime reviewDate = LocalDateTime.now();
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    private Duration duration;
+//    private ProgramRequestDto program;
 
-    private Program program;
+    private AgencyRequestDTO agency;
 
-    private Agency agency;
-
-    private Client client;
-
-    private Product product;
+//    private ClientRequestDTO client;
+//
+//    private ProductRequestDTO product;
 
     private Boolean payTVFlag;
 

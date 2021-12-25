@@ -14,7 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class AgencyRequestDTO implements Serializable {
 
-    private Long id;
     private String name;
 
 }
