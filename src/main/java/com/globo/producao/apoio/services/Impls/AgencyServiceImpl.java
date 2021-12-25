@@ -42,11 +42,10 @@ public class AgencyServiceImpl implements AgencyService {
         try{
             agencyDB.setId(agencyId);
             agencyDB.setName(agency.getName());
-            repository.save(agencyDB);
+            return repository.save(agencyDB);
         } catch (Exception e) {
             throw new UpdateDataException(e.getMessage());
         }
-        return null;
     }
 
     @Override

@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import java.time.Duration;
 import java.util.List;
 
@@ -62,17 +60,17 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setReviewDate(action.getReviewDate());
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
-            actionDB.setDuration(action.getDuration());
+            actionDB.setDuration(Duration(action));
             actionDB.setProgram(action.getProgram());
             actionDB.setAgency(action.getAgency());
             actionDB.setClient(action.getClient());
             actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
+            return repository.save(actionDB);
         } catch (Exception e) {
-
             throw new FindDataException(e.getMessage());
         }
-        return null;
+
     }
 
     @Override
@@ -97,10 +95,15 @@ public class ActionServiceImpl implements ActionService {
         return repository.findAll(pageable);
     }
 
-    private void Duration(final Action action){
+    private Duration Duration(final Action action){
 
         Duration duration = Duration.between(action.getStartTime(), action.getEndTime());
+        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
+        System.out.println("aaaaaaaaaaaaaaaaaa" + formattedTime);
         action.setDuration(duration);
 
+        return duration;
     }
+
+
 }
