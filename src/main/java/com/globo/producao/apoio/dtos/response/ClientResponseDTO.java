@@ -14,4 +14,5 @@ public class ClientResponseDTO {
 
     private Long id;
     private String name;
+    private Long idSiscom;
 }

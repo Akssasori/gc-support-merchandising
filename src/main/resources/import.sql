@@ -32,28 +32,12 @@ INSERT INTO program (program) VALUES ('Programa 26');
 INSERT INTO program (program) VALUES ('Programa 27');
 
 
---COMMIT;
 
---START TRANSACTION;
 
-INSERT INTO client (id, name) VALUES (1,'Client 1');
-INSERT INTO client (id, name) VALUES (2,'Client 2');
-INSERT INTO client (id, name) VALUES (3,'Client 3');
-INSERT INTO client (id, name) VALUES (4,'Client 4');
-INSERT INTO client (id, name) VALUES (5,'Client 5');
-INSERT INTO client (id, name) VALUES (6,'Client 6');
-INSERT INTO client (id, name) VALUES (7,'Client 7');
-INSERT INTO client (id, name) VALUES (8,'Client 8');
-INSERT INTO client (id, name) VALUES (9,'Client 9');
-INSERT INTO client (id, name) VALUES (10,'Client 10');
+INSERT INTO client (id, name, id_siscom) VALUES (1,'123 VIAGENS E TURISMO LTDA',419043);
+INSERT INTO client (id, name, id_siscom) VALUES (2,'3 M DO BRASIL',115198);
+INSERT INTO client (id, name, id_siscom) VALUES (3,'3 MILENIO',441695);
+INSERT INTO client (id, name, id_siscom) VALUES (4,'lucas',1);
+
 
 --COMMIT;
-
-----START TRANSACTION;
---
---INSERT INTO client (id, name, idSiscom) VALUES (1,'123 VIAGENS E TURISMO LTDA',419043);
---INSERT INTO client (id, name, idSiscom) VALUES (2,'3 M DO BRASIL', 115198);
---INSERT INTO client (id, name, idSiscom) VALUES (3,'3 MILENIO', 441695);
---
---
-----COMMIT;

@@ -14,7 +14,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ClientRequestDTO implements Serializable {
 
-//    private Long id;
+
     private String name;
+    private Long idSiscom;
 
 }
