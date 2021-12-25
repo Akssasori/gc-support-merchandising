@@ -43,13 +43,13 @@ public class Action implements Serializable {
 //    @JoinColumn(name = "program_id")
 //    private Program program;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agency_id")
     private Agency agency;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "client_id")
-//    private Client client;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private Client client;
 //
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "product_id")

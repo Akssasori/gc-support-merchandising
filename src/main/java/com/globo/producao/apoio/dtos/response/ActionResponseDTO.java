@@ -39,7 +39,7 @@ public class ActionResponseDTO implements Serializable {
 
     private AgencyResponseDTO agency;
 
-//    private ClientResponseDTO client;
+    private ClientResponseDTO client;
 //
 //    private ProductResponseDTO product;
 

@@ -45,8 +45,8 @@ public class ActionRequestDTO implements Serializable {
 
     private AgencyRequestDTO agency;
 
-//    private ClientRequestDTO client;
-//
+    private ClientRequestDTO client;
+
 //    private ProductRequestDTO product;
 
     private Boolean payTVFlag;

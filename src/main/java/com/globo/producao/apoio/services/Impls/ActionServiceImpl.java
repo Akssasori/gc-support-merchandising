@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.time.Duration;
 import java.util.List;
 
@@ -63,7 +65,7 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setDuration(action.getDuration());
 //            actionDB.setProgram(action.getProgram());
             actionDB.setAgency(action.getAgency());
-//            actionDB.setClient(action.getClient());
+            actionDB.setClient(action.getClient());
 //            actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
         } catch (Exception e) {
