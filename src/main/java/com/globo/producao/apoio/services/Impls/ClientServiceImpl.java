@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -48,11 +49,11 @@ public class ClientServiceImpl implements ClientService {
 
         Client clientDB = clientRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
-        if(clientDB.getIdSiscom() == client.getIdSiscom() && clientDB.getName().trim().toUpperCase() == client.getName().trim().toUpperCase()){
+        if(Objects.equals(clientDB.getName().trim().toUpperCase() ,client.getName().trim().toUpperCase()) &&
+                Objects.equals(clientDB.getIdSiscom() , client.getIdSiscom()) ){
             System.out.println("entrou");
                 return clientDB;
         } else {
-
             clientDB.setName(client.getName());
             clientDB.setId(id);
             clientDB.setIdSiscom(client.getIdSiscom());
