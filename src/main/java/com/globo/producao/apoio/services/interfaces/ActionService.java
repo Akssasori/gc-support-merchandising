@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ActionService {
 
-    Action save(Action action);
+    Action save(Action action) throws Exception;
 
     List<Action> findAll();
 

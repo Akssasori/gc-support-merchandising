@@ -24,13 +24,17 @@ import java.util.List;
 public class ActionServiceImpl implements ActionService {
 
     private final ActionRepository repository;
+    private final AgencyServiceImpl agencyService;
+    private final ClientServiceImpl clientService;
 
 
     @Override
     @Transactional
-    public Action save(Action action) {
+    public Action save(Action action) throws Exception {
 
         Duration(action);
+        action.setAgency(agencyService.save(action.getAgency()));
+//        action.setClient(clientService.save(action.getClient()));
         Action actionSave = repository.save(action);
 
 

@@ -16,5 +16,7 @@ public interface AgencyService {
 
     void delete(Long agencyId);
 
+    Agency findByIdSiscom(Long idSiscom);
+
 
 }

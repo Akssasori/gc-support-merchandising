@@ -77,6 +77,14 @@ public class AgencyController {
 
     }
 
+    @GetMapping(value = "/{idSiscom}")
+    public ResponseEntity<AgencyResponseDTO> getAgencyByIdSiscom
+            (@RequestParam final Long idSiscom){
+
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findByIdSiscom(idSiscom)));
+
+    }
+
 //    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
 //    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
 //

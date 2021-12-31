@@ -5,7 +5,6 @@ import com.globo.producao.apoio.repositories.AgencyRepository;
 import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
-import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -65,5 +64,10 @@ public class AgencyServiceImpl implements AgencyService {
             throw new DeleteDataException(e.getMessage());
         }
 
+    }
+
+    @Override
+    public Agency findByIdSiscom(Long idSiscom) {
+        return repository.findByIdSiscom(idSiscom);
     }
 }

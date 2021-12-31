@@ -78,6 +78,15 @@ public class ClientController {
 
     }
 
+    @GetMapping(value = "/{idSiscom}")
+    public ResponseEntity<ClientResponseDTO> getClientByIdSiscom
+            (@RequestParam final Long idSiscom) throws FindDataException {
+
+        return status(HttpStatus.OK).body(mapper
+                .clientToClientResponseDTO(service.findByIdSiscom(idSiscom)));
+
+    }
+
 //    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
 //    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
 //

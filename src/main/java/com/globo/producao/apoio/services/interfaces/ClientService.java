@@ -18,4 +18,6 @@ public interface ClientService {
     Client update(Long id, Client client) throws UpdateDataException;
 
     void delete(Long id) throws DeleteDataException;
+
+    Client findByIdSiscom(Long idSiscom);
 }

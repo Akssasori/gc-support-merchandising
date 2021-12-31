@@ -48,7 +48,7 @@ public class ActionController {
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ActionResponseDTO> saveAction
-            (@Valid @RequestBody final ActionRequestDTO actionRequestDTO){
+            (@Valid @RequestBody final ActionRequestDTO actionRequestDTO) throws Exception {
 
         return status(HttpStatus.CREATED).body(mapper.actionToActionResponseDTO(
                 service.save(mapper.actionRequestDtoToAction(actionRequestDTO))));

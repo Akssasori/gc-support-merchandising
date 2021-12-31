@@ -74,4 +74,9 @@ public class ClientServiceImpl implements ClientService {
         }
 
     }
+
+    @Override
+    public Client findByIdSiscom(Long idSiscom) {
+        return clientRepository.findByIdSiscom(idSiscom);
+    }
 }
