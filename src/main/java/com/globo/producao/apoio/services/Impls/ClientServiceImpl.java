@@ -51,7 +51,6 @@ public class ClientServiceImpl implements ClientService {
 
         if(Objects.equals(clientDB.getName().trim().toUpperCase() ,client.getName().trim().toUpperCase()) &&
                 Objects.equals(clientDB.getIdSiscom() , client.getIdSiscom()) ){
-            System.out.println("entrou");
                 return clientDB;
         } else {
             clientDB.setName(client.getName());
@@ -60,14 +59,6 @@ public class ClientServiceImpl implements ClientService {
             return clientRepository.save(clientDB);
         }
 
-//        try{
-//            clientDB.setName(client.getName());
-//            clientDB.setId(id);
-//            clientDB.setIdSiscom(client.getIdSiscom());
-//            return clientRepository.save(clientDB);
-//        } catch (Exception e) {
-//            throw new UpdateDataException(e.getMessage());
-//        }
     }
 
     @Override
