@@ -24,7 +24,7 @@ public class AgencyServiceImpl implements AgencyService {
 
         Agency agencyDB = repository.findByIdSiscom(agency.getIdSiscom());
 
-        if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
+        if (Objects.nonNull(agencyDB) && Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
                 Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
 
             return agencyDB;

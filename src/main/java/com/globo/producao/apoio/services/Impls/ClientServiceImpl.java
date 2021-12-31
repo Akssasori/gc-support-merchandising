@@ -19,10 +19,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client save(Client client) throws Exception {
-        try {
+
+        Client clientDB = clientRepository.findByIdSiscom(client.getIdSiscom());
+
+        if (Objects.nonNull(clientDB) && Objects.equals(clientDB.getName().trim().toUpperCase() ,client.getName().trim().toUpperCase()) &&
+                Objects.equals(clientDB.getIdSiscom() , client.getIdSiscom())) {
+
+            return clientDB;
+
+        } else {
+
             return clientRepository.save(client);
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
         }
     }
 

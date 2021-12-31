@@ -35,8 +35,8 @@ public class ActionServiceImpl implements ActionService {
 
         Duration(action);
         action.setAgency(agencyService.save(action.getAgency()));
+        action.setClient(clientService.save(action.getClient()));
         Action actionSave = repository.save(action);
-
 
         return actionSave;
     }
