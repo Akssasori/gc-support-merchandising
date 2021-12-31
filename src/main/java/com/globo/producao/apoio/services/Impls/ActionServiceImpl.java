@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Action;
+import com.globo.producao.apoio.models.Agency;
 import com.globo.producao.apoio.repositories.ActionRepository;
 import com.globo.producao.apoio.services.interfaces.ActionService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
@@ -34,7 +35,6 @@ public class ActionServiceImpl implements ActionService {
 
         Duration(action);
         action.setAgency(agencyService.save(action.getAgency()));
-//        action.setClient(clientService.save(action.getClient()));
         Action actionSave = repository.save(action);
 
 
@@ -102,12 +102,13 @@ public class ActionServiceImpl implements ActionService {
     private Duration Duration(final Action action){
 
         Duration duration = Duration.between(action.getStartTime(), action.getEndTime());
-        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
-        System.out.println("aaaaaaaaaaaaaaaaaa" + formattedTime);
+//        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
+//        System.out.println("aaaaaaaaaaaaaaaaaa" + formattedTime);
         action.setDuration(duration);
 
         return duration;
     }
+
 
 
 }

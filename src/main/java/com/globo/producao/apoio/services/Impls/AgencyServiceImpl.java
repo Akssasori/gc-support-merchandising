@@ -20,7 +20,20 @@ public class AgencyServiceImpl implements AgencyService {
     private final AgencyRepository repository;
 
     @Override
-    public Agency save(Agency agency) { return repository.save(agency); }
+    public Agency save(Agency agency) {
+
+        Agency agencyDB = repository.findByIdSiscom(agency.getIdSiscom());
+
+        if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
+                Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
+
+            return agencyDB;
+
+        } else {
+
+            return repository.save(agency);
+        }
+    }
 
     @Override
     public List<Agency> findAll() {
@@ -39,8 +52,8 @@ public class AgencyServiceImpl implements AgencyService {
 
         Agency agencyDB = repository.findById(agencyId).orElseThrow(() -> new NoEntityException(agencyId.toString()));
 
-        if(Objects.equals(agencyDB.getName().trim().toUpperCase() ,agency.getName().trim().toUpperCase()) &&
-                Objects.equals(agencyDB.getIdSiscom() , agency.getIdSiscom()) ){
+        if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
+                Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
             return agencyDB;
         } else {
             agencyDB.setName(agency.getName());
@@ -55,7 +68,7 @@ public class AgencyServiceImpl implements AgencyService {
     public void delete(Long agencyId) {
 
         try {
-            if(repository.existsById(agencyId)){
+            if (repository.existsById(agencyId)) {
                 repository.deleteById(agencyId);
             } else {
                 ResponseEntity.notFound();
