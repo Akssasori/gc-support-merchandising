@@ -15,5 +15,6 @@ import java.io.Serializable;
 public class AgencyRequestDTO implements Serializable {
 
     private String name;
+    private Long idSiscom;
 
 }

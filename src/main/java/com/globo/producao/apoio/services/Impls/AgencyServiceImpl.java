@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +40,14 @@ public class AgencyServiceImpl implements AgencyService {
 
         Agency agencyDB = repository.findById(agencyId).orElseThrow(() -> new NoEntityException(agencyId.toString()));
 
-        try{
-            agencyDB.setId(agencyId);
+        if(Objects.equals(agencyDB.getName().trim().toUpperCase() ,agency.getName().trim().toUpperCase()) &&
+                Objects.equals(agencyDB.getIdSiscom() , agency.getIdSiscom()) ){
+            return agencyDB;
+        } else {
             agencyDB.setName(agency.getName());
+            agencyDB.setId(agencyId);
+            agencyDB.setIdSiscom(agency.getIdSiscom());
             return repository.save(agencyDB);
-        } catch (Exception e) {
-            throw new UpdateDataException(e.getMessage());
         }
     }
 

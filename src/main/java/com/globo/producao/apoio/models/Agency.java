@@ -24,5 +24,7 @@ public class Agency implements Serializable {
 
     private String name;
 
+    private Long idSiscom;
+
 
 }

@@ -16,5 +16,6 @@ public class AgencyResponseDTO implements Serializable {
 
     private Long id;
     private String name;
+    private Long idSiscom;
 
 }
