@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -22,11 +23,15 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Override
     public Program save(final Program program) throws InsertDataException {
-        try {
+
+        Program programDB =  programRepository.findByProgram(program.getProgram());
+
+        if(Objects.nonNull(programDB) && Objects.equals(programDB.getProgram(), program.getProgram())){
+            return programDB;
+        } else {
             return programRepository.save(program);
-        } catch (Exception e) {
-            throw new InsertDataException(e.getMessage());
         }
+        
     }
 
     @Override
@@ -52,14 +57,23 @@ public class ProgramServiceImpl implements ProgramService {
 
         Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
-        try {
+        if (Objects.equals(programDB.getProgram().trim().toUpperCase(), program.getProgram().trim().toUpperCase())){
+
+            return programDB;
+
+        } else {
+
             programDB.setProgram(program.getProgram());
             programDB.setId(id);
             return programRepository.save(programDB);
-        } catch (Exception e) {
-            throw new UpdateDataException(e.getMessage());
+
         }
 
+    }
+
+    @Override
+    public Program findByProgram(String name) {
+        return programRepository.findByProgram(name.trim().toUpperCase());
     }
 
     @Override

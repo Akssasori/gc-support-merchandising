@@ -17,6 +17,8 @@ public interface ProgramService {
 
     Program Update(Long id, Program program) throws UpdateDataException;
 
+    Program findByProgram(String name);
+
     void Delete(Long id) throws DeleteDataException;
 
     Page<Program> pageProgram(Integer pageNumber, Integer pageSize);

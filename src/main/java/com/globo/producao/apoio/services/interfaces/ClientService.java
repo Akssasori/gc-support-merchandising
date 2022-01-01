@@ -6,6 +6,7 @@ import com.globo.producao.apoio.utils.exceptions.FindDataException;
 import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientService {
 

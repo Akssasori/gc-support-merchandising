@@ -22,6 +22,7 @@ public class ClientServiceImpl implements ClientService {
 
         Client clientDB = clientRepository.findByIdSiscom(client.getIdSiscom());
 
+
         if (Objects.nonNull(clientDB) && Objects.equals(clientDB.getName().trim().toUpperCase() ,client.getName().trim().toUpperCase()) &&
                 Objects.equals(clientDB.getIdSiscom() , client.getIdSiscom())) {
 
