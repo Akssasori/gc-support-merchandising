@@ -55,6 +55,7 @@ public class Action implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+//    @Column(columnDefinition = "false")
     private Boolean payTVFlag;
 
 

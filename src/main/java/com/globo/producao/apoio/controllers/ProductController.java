@@ -1,10 +1,17 @@
 package com.globo.producao.apoio.controllers;
 
+import com.globo.producao.apoio.dtos.requests.ProductRequestDTO;
+import com.globo.producao.apoio.dtos.response.ProductResponseDTO;
 import com.globo.producao.apoio.mappers.ProductMapper;
+import com.globo.producao.apoio.models.Product;
 import com.globo.producao.apoio.services.interfaces.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -15,5 +22,21 @@ public class ProductController {
 
     private final ProductMapper mapper;
 
+    @GetMapping
+    public ResponseEntity<List<ProductResponseDTO>> getProducts() {
 
+        return ResponseEntity.ok().body(mapper.productListToProductResponseDTOList(service.findAll()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> getProductById(@RequestParam final Long id){
+        return ResponseEntity.ok().body(mapper.productToProductResponseDTO(service.findById(id)));
+    }
+
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<ProductResponseDTO> saveProgram
+            (@Valid @RequestBody final ProductRequestDTO productRequestDTO){
+
+    }
 }

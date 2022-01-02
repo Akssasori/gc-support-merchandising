@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product product) {
-        return repository.save(product);
+
+        Product productDB = repository.findByName(product.getName());
+
+        if (Objects.nonNull(productDB) && Objects.equals(productDB.getName().trim().toUpperCase(), product.getName().trim().toUpperCase())){
+            return productDB;
+        } else {
+
+            return repository.save(product);
+        }
+
     }
 
     @Override
@@ -39,15 +49,23 @@ public class ProductServiceImpl implements ProductService {
     @SneakyThrows
     public Product update(Long productId, Product product) {
 
-        Product productDB = repository.findById(productId).orElseThrow(() -> new NoEntityException(productId.toString()));
+        Product productDB = repository.findByName(product.getName());
 
-        try {
+        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(), productDB.getName().trim().toUpperCase())){
+            return productDB;
+        } else {
+
             productDB.setId(productId);
             productDB.setName(product.getName());
             return repository.save(productDB);
-        } catch (Exception e) {
-            throw new UpdateDataException(e.getMessage());
+
         }
+
+    }
+
+    @Override
+    public Product findByName(String name) {
+        return repository.findByName(name.trim().toUpperCase());
     }
 
     @Override
