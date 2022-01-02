@@ -38,7 +38,7 @@ public class ProductController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProductResponseDTO> saveProgram
+    public ResponseEntity<ProductResponseDTO> saveProduct
             (@Valid @RequestBody final ProductRequestDTO productRequestDTO){
 
         return status(HttpStatus.CREATED).body(mapper.productToProductResponseDTO(

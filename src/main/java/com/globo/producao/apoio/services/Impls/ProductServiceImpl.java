@@ -1,12 +1,11 @@
 package com.globo.producao.apoio.services.Impls;
 
-import com.globo.producao.apoio.mappers.ProductMapper;
+
 import com.globo.producao.apoio.models.Product;
 import com.globo.producao.apoio.repositories.ProductRepository;
 import com.globo.producao.apoio.services.interfaces.ProductService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
-import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
         if (Objects.nonNull(productDB) && Objects.equals(productDB.getName().trim().toUpperCase(), product.getName().trim().toUpperCase())){
             return productDB;
         } else {
-
+            product.setName(product.getName().toUpperCase());
             return repository.save(product);
         }
 
@@ -56,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
         } else {
 
             productDB.setId(productId);
-            productDB.setName(product.getName());
+            productDB.setName(product.getName().toUpperCase());
             return repository.save(productDB);
 
         }
