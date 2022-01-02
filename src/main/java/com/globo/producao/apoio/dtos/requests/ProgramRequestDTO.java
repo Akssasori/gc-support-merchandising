@@ -12,11 +12,11 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProgramRequestDto implements Serializable {
+public class ProgramRequestDTO implements Serializable {
 
     /**
      * Program name.
      */
-    private String program;
+    private String name;
 
 }

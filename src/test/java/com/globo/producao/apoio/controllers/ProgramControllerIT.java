@@ -1,10 +1,9 @@
 package com.globo.producao.apoio.controllers;
 
 import com.globo.producao.apoio.config.BaseTest;
-import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
+import com.globo.producao.apoio.dtos.response.ProgramResponseDTO;
 import com.globo.producao.apoio.mappers.ProgramMapper;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
-import com.globo.producao.apoio.utils.exceptions.FindAllDataException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class ProgramControllerIT extends BaseTest {
     @DisplayName("Should return list programs with success.")
     public void shouldReturnListProgramResponseDtoWithSuccess() throws Exception {
 
-        doReturn(List.of(ProgramResponseDto.class)).when(programService).findAll();
+        doReturn(List.of(ProgramResponseDTO.class)).when(programService).findAll();
 
         mockMvc.perform(get(URI_LIST_PROGRAM)).andExpect(status().isOk());
     }

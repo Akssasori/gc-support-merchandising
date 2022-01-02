@@ -1,8 +1,8 @@
 package com.globo.producao.apoio.controllers;
 
 
-import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
-import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
+import com.globo.producao.apoio.dtos.requests.ProgramRequestDTO;
+import com.globo.producao.apoio.dtos.response.ProgramResponseDTO;
 import com.globo.producao.apoio.mappers.ProgramMapper;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ProgramService;
@@ -33,7 +33,7 @@ public class ProgramController {
     private final ProgramMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<ProgramResponseDto>> getPrograms() throws FindAllDataException {
+    public ResponseEntity<List<ProgramResponseDTO>> getPrograms() throws FindAllDataException {
 
         return status(HttpStatus.OK).body(mapper
                 .programListToProgramResponseDtoList(programService.findAll()));
@@ -41,7 +41,7 @@ public class ProgramController {
     }
 
     @GetMapping(value = "/listProgram/id")
-    public ResponseEntity<ProgramResponseDto> getProgramById
+    public ResponseEntity<ProgramResponseDTO> getProgramById
             (@RequestParam final Long id) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
@@ -51,17 +51,17 @@ public class ProgramController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ProgramResponseDto> saveProgram
-            (@Valid @RequestBody final ProgramRequestDto programRequestDto)throws InsertDataException {
+    public ResponseEntity<ProgramResponseDTO> saveProgram
+            (@Valid @RequestBody final ProgramRequestDTO programRequestDto)throws InsertDataException {
 
         return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
                 programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
     @PutMapping(value = "/edit-program/{id}")
-    public ResponseEntity<ProgramResponseDto> updateProgramById (
+    public ResponseEntity<ProgramResponseDTO> updateProgramById (
             @PathVariable(value = "id") final Long id,
-            @Valid @RequestBody final ProgramRequestDto programRequestDto) throws UpdateDataException {
+            @Valid @RequestBody final ProgramRequestDTO programRequestDto) throws UpdateDataException {
 
         return status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
                 (programService.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
@@ -79,7 +79,7 @@ public class ProgramController {
     }
 
     @GetMapping(value = "/page/{pageNumber}/{pageSize}")
-    public Page<ProgramResponseDto> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
+    public Page<ProgramResponseDTO> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
 
         return mapper.programToProgramResponseDTOPage(programService.pageProgram(pageNumber,pageSize));
     }

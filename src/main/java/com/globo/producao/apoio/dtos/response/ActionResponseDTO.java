@@ -1,9 +1,5 @@
 package com.globo.producao.apoio.dtos.response;
 
-import com.globo.producao.apoio.models.Agency;
-import com.globo.producao.apoio.models.Client;
-import com.globo.producao.apoio.models.Product;
-import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.models.enums.TypeActionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +31,7 @@ public class ActionResponseDTO implements Serializable {
 
     private Duration duration;
 
-    private ProgramResponseDto program;
+    private ProgramResponseDTO program;
 
     private AgencyResponseDTO agency;
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProgramResponseDto {
+public class ProgramResponseDTO {
 
     /**
      * Program id.
@@ -21,5 +21,5 @@ public class ProgramResponseDto {
     /**
      * Program name.
      */
-    private String program;
+    private String name;
 }

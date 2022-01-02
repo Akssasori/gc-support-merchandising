@@ -24,14 +24,14 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public Program save(final Program program) throws InsertDataException {
 
-        Program programDB =  programRepository.findByProgram(program.getProgram());
+        Program programDB =  programRepository.findByName(program.getName());
 
-        if(Objects.nonNull(programDB) && Objects.equals(programDB.getProgram(), program.getProgram())){
+        if(Objects.nonNull(programDB) && Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())){
             return programDB;
         } else {
             return programRepository.save(program);
         }
-        
+
     }
 
     @Override
@@ -57,13 +57,13 @@ public class ProgramServiceImpl implements ProgramService {
 
         Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
-        if (Objects.equals(programDB.getProgram().trim().toUpperCase(), program.getProgram().trim().toUpperCase())){
+        if (Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())){
 
             return programDB;
 
         } else {
 
-            programDB.setProgram(program.getProgram());
+            programDB.setName(program.getName());
             programDB.setId(id);
             return programRepository.save(programDB);
 
@@ -73,7 +73,7 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Override
     public Program findByProgram(String name) {
-        return programRepository.findByProgram(name.trim().toUpperCase());
+        return programRepository.findByName(name.trim().toUpperCase());
     }
 
     @Override

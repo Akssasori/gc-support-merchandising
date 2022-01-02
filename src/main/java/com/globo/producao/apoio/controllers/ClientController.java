@@ -2,17 +2,12 @@ package com.globo.producao.apoio.controllers;
 
 
 import com.globo.producao.apoio.dtos.requests.ClientRequestDTO;
-import com.globo.producao.apoio.dtos.requests.ProgramRequestDto;
 import com.globo.producao.apoio.dtos.response.ClientResponseDTO;
-import com.globo.producao.apoio.dtos.response.ProgramResponseDto;
 import com.globo.producao.apoio.mappers.ClientMapper;
-import com.globo.producao.apoio.mappers.ProgramMapper;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ClientService;
-import com.globo.producao.apoio.services.interfaces.ProgramService;
 import com.globo.producao.apoio.utils.exceptions.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
