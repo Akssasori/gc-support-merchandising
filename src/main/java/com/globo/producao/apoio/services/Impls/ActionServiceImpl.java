@@ -27,6 +27,8 @@ public class ActionServiceImpl implements ActionService {
     private final ActionRepository repository;
     private final AgencyServiceImpl agencyService;
     private final ClientServiceImpl clientService;
+    private final ProductServiceImpl productService;
+    private final ProgramServiceImpl programService;
 
 
     @Override
@@ -34,6 +36,8 @@ public class ActionServiceImpl implements ActionService {
     public Action save(Action action) throws Exception {
 
         Duration(action);
+        action.setProgram(programService.save(action.getProgram()));
+        action.setProduct(productService.save(action.getProduct()));
         action.setAgency(agencyService.save(action.getAgency()));
         action.setClient(clientService.save(action.getClient()));
         Action actionSave = repository.save(action);

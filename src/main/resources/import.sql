@@ -18,6 +18,9 @@ INSERT INTO agency (id, name, id_siscom) VALUES (2,'ADVANCE',122816);
 INSERT INTO agency (id, name, id_siscom) VALUES (3,'BETC BRASIL',380483);
 INSERT INTO agency (id, name, id_siscom) VALUES (4,'FLASH',44043);
 
+--INSERT INTO action (id, type_action, review_date, start_time, end_time, program, agency, client, product, paytvflag )
+--VALUES (1, 'ACAO', "")
+
 --INSERT INTO action (description, duration, end_time, paytvflag, review_date, start_time, type_action, agency_id, client_id, product_id, program_id) VALUES('ACAO COM LUCIANO E PLATEIA', 60000000000, '2021-12-25T07:57:00', false, '2022-01-01T21:32:21', '2021-12-25T07:56:00', 'ACAO', 4, 3, 1, 3);
 
 --COMMIT;
