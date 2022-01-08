@@ -29,6 +29,7 @@ public class ProgramServiceImpl implements ProgramService {
         if(Objects.nonNull(programDB) && Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())){
             return programDB;
         } else {
+            program.setName(program.getName().toUpperCase());
             return programRepository.save(program);
         }
 
@@ -63,7 +64,7 @@ public class ProgramServiceImpl implements ProgramService {
 
         } else {
 
-            programDB.setName(program.getName());
+            programDB.setName(program.getName().toUpperCase());
             programDB.setId(id);
             return programRepository.save(programDB);
 

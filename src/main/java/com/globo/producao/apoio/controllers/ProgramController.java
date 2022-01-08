@@ -40,9 +40,9 @@ public class ProgramController {
 
     }
 
-    @GetMapping(value = "/listProgram/id")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ProgramResponseDTO> getProgramById
-            (@RequestParam final Long id) throws FindDataException {
+            (@PathVariable final Long id) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
                 .programToProgramResponseDTO(programService.findById(id)));
@@ -58,7 +58,7 @@ public class ProgramController {
                 programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
-    @PutMapping(value = "/edit-program/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<ProgramResponseDTO> updateProgramById (
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDTO programRequestDto) throws UpdateDataException {
@@ -68,7 +68,7 @@ public class ProgramController {
 
     }
 
-    @DeleteMapping(value = "/delete-program/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Program> deleteProgram (
             @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
