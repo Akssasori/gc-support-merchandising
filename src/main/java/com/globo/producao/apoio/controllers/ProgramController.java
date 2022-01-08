@@ -24,11 +24,11 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/program")
+@RequestMapping("program")
 @RequiredArgsConstructor
 public class ProgramController {
 
-    private final ProgramService programService;
+    private final ProgramService service;
 
     private final ProgramMapper mapper;
 
@@ -36,52 +36,52 @@ public class ProgramController {
     public ResponseEntity<List<ProgramResponseDTO>> getPrograms() throws FindAllDataException {
 
         return status(HttpStatus.OK).body(mapper
-                .programListToProgramResponseDtoList(programService.findAll()));
+                .programListToProgramResponseDtoList(service.findAll()));
 
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<ProgramResponseDTO> getProgramById
             (@PathVariable final Long id) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
-                .programToProgramResponseDTO(programService.findById(id)));
+                .programToProgramResponseDTO(service.findById(id)));
 
     }
 
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProgramResponseDTO> saveProgram
             (@Valid @RequestBody final ProgramRequestDTO programRequestDto)throws InsertDataException {
 
         return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
-                programService.save(mapper.programRequestDtoToProgram(programRequestDto))));
+                service.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<ProgramResponseDTO> updateProgramById (
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDTO programRequestDto) throws UpdateDataException {
 
         return status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
-                (programService.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
+                (service.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
 
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Program> deleteProgram (
             @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
-        programService.Delete(id);
+        service.Delete(id);
 
         return ResponseEntity.ok().build();
 
     }
 
-    @GetMapping(value = "/page/{pageNumber}/{pageSize}")
+    @GetMapping("/page/{pageNumber}/{pageSize}")
     public Page<ProgramResponseDTO> pagePrograms(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
 
-        return mapper.programToProgramResponseDTOPage(programService.pageProgram(pageNumber,pageSize));
+        return mapper.programToProgramResponseDTOPage(service.pageProgram(pageNumber,pageSize));
     }
 
 
