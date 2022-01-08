@@ -1,5 +1,6 @@
 package com.globo.producao.apoio.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.globo.producao.apoio.config.BaseTest;
 import com.globo.producao.apoio.dtos.response.ProgramResponseDTO;
 import com.globo.producao.apoio.fakerModal.ProgramFaker;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ProgramController.class)
@@ -26,6 +29,7 @@ public class ProgramControllerIT extends BaseTest {
 
     private final String URI_LIST_PROGRAM = "/program";
     private final String URI_PROGRAM_BY_ID = "/program/1";
+    private final String URI_SAVE_PROGRAM = "/program/save";
 
     @MockBean
     ProgramService programService;
@@ -51,6 +55,18 @@ public class ProgramControllerIT extends BaseTest {
         doReturn(ProgramFaker.getProgram()).when(programService).findById(anyLong());
 
         mockMvc.perform(get(URI_PROGRAM_BY_ID)).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Should save program with success.")
+    public void shouldReturnProgramSavedWithSuccess() throws Exception {
+
+        doReturn(ProgramFaker.getProgram()).when(programService).save(ProgramFaker.getProgram());
+
+        mockMvc.perform(post(URI_SAVE_PROGRAM)
+                        .content(new ObjectMapper().writeValueAsString(ProgramFaker.getProgram()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
     }
 
 }
