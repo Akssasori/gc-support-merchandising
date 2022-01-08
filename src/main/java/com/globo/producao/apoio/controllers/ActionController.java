@@ -19,7 +19,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/action")
+@RequestMapping("action")
 @RequiredArgsConstructor
 public class ActionController {
 
@@ -34,9 +34,9 @@ public class ActionController {
 
     }
 
-    @GetMapping(value = "/list/id")
+    @GetMapping("{id}")
     public ResponseEntity<ActionResponseDTO> getActionById
-            (@RequestParam final Long id) {
+            (@PathVariable final Long id) {
 
         return status(HttpStatus.OK).body(mapper.actionToActionResponseDTO(service.findById(id)));
 
@@ -51,7 +51,7 @@ public class ActionController {
                 service.save(mapper.actionRequestDtoToAction(actionRequestDTO))));
     }
 
-    @PutMapping(value = "/edit-action/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<ActionResponseDTO> updateActionById (
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ActionRequestDTO actionRequestDTO) {
@@ -61,7 +61,7 @@ public class ActionController {
 
     }
 
-    @DeleteMapping(value = "/delete-action/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Program> actionProgram (
             @PathVariable(value = "id") final Long actionId) {
 

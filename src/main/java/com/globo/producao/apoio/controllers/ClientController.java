@@ -19,7 +19,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("client")
 @RequiredArgsConstructor
 public class ClientController {
 
@@ -35,16 +35,16 @@ public class ClientController {
 
     }
 
-    @GetMapping(value = "/list-by/id")
+    @GetMapping("{id}")
     public ResponseEntity<ClientResponseDTO> getClientById
-            (@RequestParam final Long id) throws FindDataException {
+            (@PathVariable final Long id) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
                 .clientToClientResponseDTO(service.findById(id)));
 
     }
 
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ClientResponseDTO> createClient
             (@Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws Exception {
@@ -53,7 +53,7 @@ public class ClientController {
                 service.save(mapper.clientRequestDTOToClient(clientRequestDTO))));
     }
 
-    @PutMapping(value = "/edit/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<ClientResponseDTO> updateClientById (
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws UpdateDataException {
@@ -63,7 +63,7 @@ public class ClientController {
 
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Program> deleteClient (
             @PathVariable(value = "id") final Long id) throws DeleteDataException {
 
@@ -73,9 +73,9 @@ public class ClientController {
 
     }
 
-    @GetMapping(value = "/{idSiscom}")
+    @GetMapping("/siscom/{idSiscom}")
     public ResponseEntity<ClientResponseDTO> getClientByIdSiscom
-            (@RequestParam final Long idSiscom) throws FindDataException {
+            (@PathVariable final Long idSiscom) throws FindDataException {
 
         return status(HttpStatus.OK).body(mapper
                 .clientToClientResponseDTO(service.findByIdSiscom(idSiscom)));

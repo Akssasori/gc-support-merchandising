@@ -17,7 +17,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("product")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -31,12 +31,12 @@ public class ProductController {
         return ResponseEntity.ok().body(mapper.productListToProductResponseDTOList(service.findAll()));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> getProductById(@RequestParam final Long id){
+    @GetMapping("{id}")
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable final Long id){
         return ResponseEntity.ok().body(mapper.productToProductResponseDTO(service.findById(id)));
     }
 
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProductResponseDTO> saveProduct
             (@Valid @RequestBody final ProductRequestDTO productRequestDTO){
@@ -46,14 +46,14 @@ public class ProductController {
 
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct (@PathVariable("id") final Long id,
                                                              @Valid @RequestBody final ProductRequestDTO productRequestDTO){
         return ResponseEntity.ok().body(mapper.productToProductResponseDTO(service
                 .update(id, mapper.productRequestDTOToProduct(productRequestDTO))));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> delete (@PathVariable("id") final Long id){
 
         service.delete(id);

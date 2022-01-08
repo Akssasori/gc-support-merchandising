@@ -25,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
 
         Product productDB = repository.findByName(product.getName());
 
-        if (Objects.nonNull(productDB) && Objects.equals(productDB.getName().trim().toUpperCase(), product.getName().trim().toUpperCase())){
+        if (Objects.nonNull(productDB) && Objects.equals(productDB.getName().trim().toUpperCase(),
+                product.getName().trim().toUpperCase())){
             return productDB;
         } else {
             product.setName(product.getName().toUpperCase());
@@ -50,7 +51,8 @@ public class ProductServiceImpl implements ProductService {
 
         Product productDB = repository.findByName(product.getName());
 
-        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(), productDB.getName().trim().toUpperCase())){
+        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(),
+                productDB.getName().trim().toUpperCase())){
             return productDB;
         } else {
 

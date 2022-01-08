@@ -25,7 +25,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/agency")
+@RequestMapping("agency")
 @RequiredArgsConstructor
 public class AgencyController {
 
@@ -40,15 +40,15 @@ public class AgencyController {
 
     }
 
-    @GetMapping(value = "/agency-by/id")
+    @GetMapping(value = "{id}")
     public ResponseEntity<AgencyResponseDTO> getAgencyById
-            (@RequestParam final Long agencyId){
+            (@PathVariable final Long id){
 
-        return status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findById(agencyId)));
+        return status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findById(id)));
 
     }
 
-    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<AgencyResponseDTO> createAgency
             (@Valid @RequestBody final AgencyRequestDTO agencyRequestDTO) {
@@ -57,29 +57,29 @@ public class AgencyController {
                 service.save(mapper.agencyRequestDTOToAgency(agencyRequestDTO))));
     }
 
-    @PutMapping(value = "/edit/{agencyId}")
+    @PutMapping("{id}")
     public ResponseEntity<AgencyResponseDTO> updateAgencyById (
-            @PathVariable(value = "agencyId") final Long agencyId,
+            @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final AgencyRequestDTO agencyRequestDTO){
 
         return status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO
-                (service.update(agencyId, mapper.agencyRequestDTOToAgency(agencyRequestDTO))));
+                (service.update(id, mapper.agencyRequestDTOToAgency(agencyRequestDTO))));
 
     }
 
-    @DeleteMapping(value = "/delete/{agencyId}")
+    @DeleteMapping(value = "{id}")
     public ResponseEntity<Program> deleteAgency (
-            @PathVariable(value = "agencyId") final Long agencyId) {
+            @PathVariable(value = "id") final Long id) {
 
-        service.delete(agencyId);
+        service.delete(id);
 
         return ResponseEntity.ok().build();
 
     }
 
-    @GetMapping(value = "/{idSiscom}")
+    @GetMapping(value = "/siscom/{idSiscom}")
     public ResponseEntity<AgencyResponseDTO> getAgencyByIdSiscom
-            (@RequestParam final Long idSiscom){
+            (@PathVariable final Long idSiscom){
 
         return ResponseEntity.status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findByIdSiscom(idSiscom)));
 

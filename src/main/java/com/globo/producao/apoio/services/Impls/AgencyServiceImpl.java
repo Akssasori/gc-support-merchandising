@@ -49,16 +49,16 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     @SneakyThrows
-    public Agency update(Long agencyId, Agency agency) {
+    public Agency update(Long id, Agency agency) {
 
-        Agency agencyDB = repository.findById(agencyId).orElseThrow(() -> new NoEntityException(agencyId.toString()));
+        Agency agencyDB = repository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
         if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
                 Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
             return agencyDB;
         } else {
             agencyDB.setName(agency.getName());
-            agencyDB.setId(agencyId);
+            agencyDB.setId(id);
             agencyDB.setIdSiscom(agency.getIdSiscom());
             return repository.save(agencyDB);
         }
