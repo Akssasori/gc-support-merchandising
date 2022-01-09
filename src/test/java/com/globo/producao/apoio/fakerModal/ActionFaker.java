@@ -9,6 +9,7 @@ public class ActionFaker {
 
     public static Action getAction() {
         return Action.builder()
+                .id(1L)
                 .agency(Agency.builder()
                         .id(4L)
                         .name("FLASH")
@@ -29,6 +30,7 @@ public class ActionFaker {
                 .typeAction(TypeActionEnum.ACAO)
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now().plusHours(1L))
+                .reviewDate(LocalDateTime.now())
                 .payTVFlag(false)
                 .build();
     }

@@ -7,6 +7,7 @@ import com.globo.producao.apoio.services.interfaces.ActionService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.FindDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
@@ -111,7 +112,7 @@ public class ActionServiceImpl implements ActionService {
         return repository.findAll(pageable);
     }
 
-    private Duration Duration(final Action action){
+    private Duration Duration(final Action action) {
 
         Duration duration = Duration.between(action.getStartTime(), action.getEndTime());
 //        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());

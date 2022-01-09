@@ -2,10 +2,7 @@ package com.globo.producao.apoio.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.globo.producao.apoio.models.enums.TypeActionEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -55,7 +52,7 @@ public class Action implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-//    @Column(columnDefinition = "false")
+    @Column(columnDefinition = "false")
     private Boolean payTVFlag;
 
 
