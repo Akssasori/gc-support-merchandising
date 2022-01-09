@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -35,14 +36,21 @@ public class ActionServiceImpl implements ActionService {
     @Transactional
     public Action save(Action action) throws Exception {
 
-        Duration(action);
-        action.setProgram(programService.save(action.getProgram()));
-        action.setProduct(productService.save(action.getProduct()));
-        action.setAgency(agencyService.save(action.getAgency()));
-        action.setClient(clientService.save(action.getClient()));
-        Action actionSave = repository.save(action);
+        if (Objects.nonNull(action)) {
 
-        return actionSave;
+            Duration(action);
+            action.setProgram(programService.save(action.getProgram()));
+            action.setProduct(productService.save(action.getProduct()));
+            action.setAgency(agencyService.save(action.getAgency()));
+            action.setClient(clientService.save(action.getClient()));
+            Action actionSave = repository.save(action);
+
+            return actionSave;
+
+        } else {
+
+            return Action.builder().build();
+        }
     }
 
     @Override
