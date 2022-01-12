@@ -36,16 +36,16 @@ public class Action implements Serializable {
     @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
 
-    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Client client;
 
-    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Program program;
 
-    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Product product;
 
-    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Agency agency;
 
     private Boolean payTVFlag;

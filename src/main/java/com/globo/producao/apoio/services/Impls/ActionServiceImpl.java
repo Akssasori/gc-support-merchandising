@@ -67,6 +67,7 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     @SneakyThrows
+    @Transactional
     public Action update(Long actionId, Action action) {
 
         Action actionDB = repository.findById(actionId).orElseThrow(() -> new NoEntityException(actionId.toString()));
