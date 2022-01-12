@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProgramService {
 
 
-    Program save(Program program) throws InsertDataException;
+    Program save(Program program) throws InsertDataException, FindDataException;
 
     List<Program> findAll() throws FindAllDataException;
 

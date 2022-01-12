@@ -52,7 +52,7 @@ public class ProgramController {
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProgramResponseDTO> saveProgram
-            (@Valid @RequestBody final ProgramRequestDTO programRequestDto)throws InsertDataException {
+            (@Valid @RequestBody final ProgramRequestDTO programRequestDto) throws InsertDataException, FindDataException {
 
         return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
                 service.save(mapper.programRequestDtoToProgram(programRequestDto))));
