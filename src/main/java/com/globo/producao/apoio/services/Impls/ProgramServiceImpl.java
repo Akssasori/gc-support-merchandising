@@ -24,7 +24,7 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public Program save(final Program program) throws InsertDataException {
 
-        Program programDB =  programRepository.findByName(program.getName());
+        Program programDB =  programRepository.findByName(program.getName()).orElseThrow(() -> new NoEntityException(program.getName()));
 
         if(Objects.nonNull(programDB) && Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())){
             return programDB;
@@ -74,7 +74,8 @@ public class ProgramServiceImpl implements ProgramService {
 
     @Override
     public Program findByProgram(String name) {
-        return programRepository.findByName(name.trim().toUpperCase());
+
+        return programRepository.findByName(name.trim().toUpperCase()).orElseThrow(() -> new NoEntityException(name));
     }
 
     @Override
