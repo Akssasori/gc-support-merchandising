@@ -44,7 +44,8 @@ public class ActionServiceImpl implements ActionService {
             action.setProduct(productService.save(action.getProduct()));
             action.setAgency(agencyService.save(action.getAgency()));
             action.setClient(clientService.save(action.getClient()));
-            Action actionSave = repository.save(action);
+            repository.save(action);
+            Action actionSave = action;
 
             return actionSave;
 
