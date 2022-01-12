@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -25,6 +22,11 @@ public class Agency implements Serializable {
     private String name;
 
     private Long idSiscom;
+
+    @OneToOne
+    @JoinColumn(name = "action_id")
+    private Action action;
+
 
 
 }

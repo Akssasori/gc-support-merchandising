@@ -26,5 +26,9 @@ public class Client implements Serializable {
 
     private Long idSiscom;
 
+    @OneToOne
+    @JoinColumn(name = "action_id")
+    private Action action;
+
 
 }

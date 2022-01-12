@@ -27,4 +27,4 @@ INSERT INTO agency (id, name, id_siscom) VALUES (4,'FLASH',44043);
 
 --INSERT INTO gc_support_merchan.`action`
 --(id, description, duration, end_time, paytvflag, review_date, start_time, type_action, agency_id, client_id, product_id, program_id)
---VALUES(1, 'acao com luciano e plateia', 60000000000, '2021-12-25 10:57:00', 0, '2022-01-02 00:32:21', '2021-12-25 10:56:00', 'ACAO', 4, 3, 1, 4);
+--VALUES(1, 'acao com luciano e plateia', 60000000000, Loca'2021-12-25 10:57:00', 0, '2022-01-02 00:32:21', '2021-12-25 10:56:00', 'ACAO', 4, 3, 1, 4);

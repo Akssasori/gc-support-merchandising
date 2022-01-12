@@ -33,26 +33,21 @@ public class Action implements Serializable {
     @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-//    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "program_id")
-    private Program program;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agency_id")
-    private Agency agency;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
     private Client client;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    private Program program;
+
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
     private Product product;
 
-    @Column(columnDefinition = "false")
+    @OneToOne(mappedBy = "action", fetch = FetchType.LAZY)
+    private Agency agency;
+
     private Boolean payTVFlag;
 
 

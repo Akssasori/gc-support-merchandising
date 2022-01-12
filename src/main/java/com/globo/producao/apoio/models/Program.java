@@ -5,11 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -29,6 +25,10 @@ public class Program implements Serializable {
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     @Column(nullable = false)
     private String name;
+
+    @OneToOne
+    @JoinColumn(name = "action_id")
+    private Action action;
 
 
 
