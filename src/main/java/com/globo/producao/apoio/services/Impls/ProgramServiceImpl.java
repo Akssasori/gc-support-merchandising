@@ -35,13 +35,12 @@ public class ProgramServiceImpl implements ProgramService {
                         program.getName().trim().toUpperCase())) {
                     return programDB.get();
                 } else {
-                    program.setName(program.getName());
+
                     return programRepository.save(program);
                 }
             } else {
 
                 if (!program.getName().trim().isEmpty()) {
-                    program.setName(program.getName().toUpperCase());
                     return programRepository.save(program);
 
                 } else {
