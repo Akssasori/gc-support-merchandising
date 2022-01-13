@@ -5,6 +5,7 @@ import com.globo.producao.apoio.dtos.response.ProductResponseDTO;
 import com.globo.producao.apoio.mappers.ProductMapper;
 import com.globo.producao.apoio.models.Product;
 import com.globo.producao.apoio.services.interfaces.ProductService;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +40,7 @@ public class ProductController {
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ProductResponseDTO> saveProduct
-            (@Valid @RequestBody final ProductRequestDTO productRequestDTO){
+            (@Valid @RequestBody final ProductRequestDTO productRequestDTO) throws InsertDataException {
 
         return status(HttpStatus.CREATED).body(mapper.productToProductResponseDTO(
                 service.save(mapper.productRequestDTOToProduct(productRequestDTO))));

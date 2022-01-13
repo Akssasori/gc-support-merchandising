@@ -5,6 +5,7 @@ import com.globo.producao.apoio.models.Product;
 import com.globo.producao.apoio.repositories.ProductRepository;
 import com.globo.producao.apoio.services.interfaces.ProductService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,16 +23,35 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
+    @SneakyThrows
     public Product save(Product product) {
 
-        Product productDB = repository.findByName(product.getName());
+        try {
 
-        if (Objects.nonNull(productDB) && Objects.equals(productDB.getName().trim().toUpperCase(),
-                product.getName().trim().toUpperCase())){
-            return productDB;
-        } else {
-            product.setName(product.getName().toUpperCase());
-            return repository.save(product);
+            Optional<Product> productDB = repository.findByName(product.getName());
+
+            if (productDB.isPresent()) {
+
+                if (!product.getName().isEmpty() && Objects.equals(productDB.get().getName().trim().toUpperCase(),
+                        product.getName().trim().toUpperCase())) {
+                    return productDB.get();
+                } else {
+                    product.setName(product.getName());
+                    return repository.save(product);
+                }
+
+            } else {
+                if (!product.getName().trim().isEmpty()) {
+                    product.setName(product.getName());
+                    return repository.save(product);
+
+                } else {
+                    return null;
+                }
+            }
+
+        } catch (Exception e) {
+            throw new InsertDataException(e.getMessage());
         }
 
     }
@@ -49,10 +70,10 @@ public class ProductServiceImpl implements ProductService {
     @SneakyThrows
     public Product update(Long productId, Product product) {
 
-        Product productDB = repository.findByName(product.getName());
+        Product productDB = repository.findByName(product.getName()).get();
 
         if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(),
-                productDB.getName().trim().toUpperCase())){
+                productDB.getName().trim().toUpperCase())) {
             return productDB;
         } else {
 
@@ -66,14 +87,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findByName(String name) {
-        return repository.findByName(name.trim().toUpperCase());
+        return repository.findByName(name.trim().toUpperCase()).get();
     }
 
     @Override
     @SneakyThrows
     public void delete(Long productId) {
         try {
-            if(repository.existsById(productId)){
+            if (repository.existsById(productId)) {
                 repository.deleteById(productId);
             } else {
                 ResponseEntity.notFound();

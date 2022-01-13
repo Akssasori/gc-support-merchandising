@@ -31,11 +31,11 @@ public class ProgramServiceImpl implements ProgramService {
 
             if (programDB.isPresent()) {
 
-                if (!programDB.get().getName().isEmpty() && Objects.equals(programDB.get().getName().trim().toUpperCase(),
+                if (!program.getName().isEmpty() && Objects.equals(programDB.get().getName().trim().toUpperCase(),
                         program.getName().trim().toUpperCase())) {
                     return programDB.get();
                 } else {
-                    program.setName(program.getName().toUpperCase());
+                    program.setName(program.getName());
                     return programRepository.save(program);
                 }
             } else {
@@ -45,6 +45,7 @@ public class ProgramServiceImpl implements ProgramService {
                     return programRepository.save(program);
 
                 } else {
+
                     return null;
                 }
 
