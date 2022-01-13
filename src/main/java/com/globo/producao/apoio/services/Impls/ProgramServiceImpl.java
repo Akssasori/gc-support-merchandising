@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -22,23 +23,36 @@ public class ProgramServiceImpl implements ProgramService {
     private final ProgramRepository programRepository;
 
     @Override
-    public Program save(final Program program) throws InsertDataException, FindDataException {
+    public Program save(final Program program) throws InsertDataException {
 
-           if (programRepository.findByName(program.getName()).isPresent()) {
+        try {
 
-               Program programDB = programRepository.findByName(program.getName()).get();
+            Optional<Program> programDB = programRepository.findByName(program.getName());
 
-               if (Objects.nonNull(programDB) && Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())) {
-                   return programDB;
-               } else {
-                   program.setName(program.getName().toUpperCase());
-                   return programRepository.save(program);
-               }
-           } else {
-               program.setName(program.getName().toUpperCase());
-               return programRepository.save(program);
-           }
+            if (programDB.isPresent()) {
 
+                if (!programDB.get().getName().isEmpty() && Objects.equals(programDB.get().getName().trim().toUpperCase(),
+                        program.getName().trim().toUpperCase())) {
+                    return programDB.get();
+                } else {
+                    program.setName(program.getName().toUpperCase());
+                    return programRepository.save(program);
+                }
+            } else {
+
+                if (!program.getName().trim().isEmpty()) {
+                    program.setName(program.getName().toUpperCase());
+                    return programRepository.save(program);
+
+                } else {
+                    return null;
+                }
+
+            }
+
+        } catch (Exception e) {
+            throw new InsertDataException(e.getMessage());
+        }
     }
 
     @Override
@@ -64,7 +78,7 @@ public class ProgramServiceImpl implements ProgramService {
 
         Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
-        if (Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())){
+        if (Objects.equals(programDB.getName().trim().toUpperCase(), program.getName().trim().toUpperCase())) {
 
             return programDB;
 
