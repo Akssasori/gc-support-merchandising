@@ -8,10 +8,11 @@ INSERT INTO program (id, name) VALUES (2,'Programa 2');
 INSERT INTO program (id, name) VALUES (3,'Programa 3');
 INSERT INTO program (id, name) VALUES (4,'CALDEIRAO DO HULK');
 
-INSERT INTO client (id, name, id_siscom) VALUES (1,'123 VIAGENS E TURISMO LTDA',419043);
-INSERT INTO client (id, name, id_siscom) VALUES (2,'3 M DO BRASIL',115198);
-INSERT INTO client (id, name, id_siscom) VALUES (3,'3 MILENIO',441695);
-INSERT INTO client (id, name, id_siscom) VALUES (4,'lucas',1);
+INSERT INTO client (id, name, id_siscom) VALUES (1,'no registry',0);
+INSERT INTO client (id, name, id_siscom) VALUES (2,'123 VIAGENS E TURISMO LTDA',419043);
+INSERT INTO client (id, name, id_siscom) VALUES (3,'3 M DO BRASIL',115198);
+INSERT INTO client (id, name, id_siscom) VALUES (4,'3 MILENIO',441695);
+INSERT INTO client (id, name, id_siscom) VALUES (5,'lucas',1);
 
 INSERT INTO agency (id, name, id_siscom) VALUES (1,'2 U PROPAGANDA E COMUNICACAO',390798);
 INSERT INTO agency (id, name, id_siscom) VALUES (2,'ADVANCE',122816);

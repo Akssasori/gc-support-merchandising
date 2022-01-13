@@ -4,6 +4,7 @@ package com.globo.producao.apoio.controllers;
 import com.globo.producao.apoio.dtos.requests.ClientRequestDTO;
 import com.globo.producao.apoio.dtos.response.ClientResponseDTO;
 import com.globo.producao.apoio.mappers.ClientMapper;
+import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ClientService;
 import com.globo.producao.apoio.utils.exceptions.*;
@@ -50,7 +51,7 @@ public class ClientController {
             (@Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws Exception {
 
         return status(HttpStatus.CREATED).body(mapper.clientToClientResponseDTO(
-                service.save(mapper.clientRequestDTOToClient(clientRequestDTO))));
+                (Client) service.save(mapper.clientRequestDTOToClient(clientRequestDTO))));
     }
 
     @PutMapping("{id}")

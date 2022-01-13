@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Client;
+import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.repositories.ClientRepository;
 import com.globo.producao.apoio.services.interfaces.ClientService;
 import com.globo.producao.apoio.utils.exceptions.*;
@@ -25,32 +26,30 @@ public class ClientServiceImpl implements ClientService {
 
         try {
 
-            Optional<Client> clientDB = clientRepository.findByIdSiscom(client.getIdSiscom());
+            Optional<Client> clientDB = clientRepository.findByName(client.getName());
 
             if (clientDB.isPresent()) {
 
-                if (!client.getName().isEmpty() && Objects.equals(clientDB.get().getName().trim().toUpperCase(), client.getName().trim().toUpperCase()) &&
-                        Objects.equals(clientDB.get().getIdSiscom(), client.getIdSiscom())) {
-
+                if (Objects.equals(clientDB.get().getName().trim().toUpperCase(),
+                        client.getName().trim().toUpperCase())) {
                     return clientDB.get();
-
-                } else {
-                    return clientRepository.save(client);
                 }
 
             } else {
 
-                if (!client.getName().trim().isEmpty()) {
-                    return clientRepository.save(client);
+                if (Objects.isNull(client.getName()) || client.getName().isEmpty()) {
+                    Client clientDefault = clientRepository.findById(1L).get();
+                    return clientDefault;
                 } else {
-                    return null;
+                    return clientRepository.save(client);
                 }
             }
-
 
         } catch (Exception e) {
             throw new InsertDataException(e.getMessage());
         }
+
+        return client;
     }
 
 
