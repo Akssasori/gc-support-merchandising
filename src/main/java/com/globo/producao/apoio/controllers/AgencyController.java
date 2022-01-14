@@ -12,6 +12,7 @@ import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.services.interfaces.ClientService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.FindDataException;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class AgencyController {
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<AgencyResponseDTO> createAgency
-            (@Valid @RequestBody final AgencyRequestDTO agencyRequestDTO) {
+            (@Valid @RequestBody final AgencyRequestDTO agencyRequestDTO) throws InsertDataException {
 
         return status(HttpStatus.CREATED).body(mapper.agencyToAgencyResponseDTO(
                 service.save(mapper.agencyRequestDTOToAgency(agencyRequestDTO))));

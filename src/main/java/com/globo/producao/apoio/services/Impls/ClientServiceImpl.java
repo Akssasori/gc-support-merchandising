@@ -24,9 +24,11 @@ public class ClientServiceImpl implements ClientService {
     @SneakyThrows
     public Client save(Client client) {
 
+        Optional<Client> clientDB;
+
         try {
 
-            Optional<Client> clientDB = clientRepository.findByName(client.getName());
+            clientDB = clientRepository.findByName(client.getName());
 
             if (clientDB.isPresent()) {
 
@@ -49,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
             throw new InsertDataException(e.getMessage());
         }
 
-        return client;
+        return clientDB.get();
     }
 
 

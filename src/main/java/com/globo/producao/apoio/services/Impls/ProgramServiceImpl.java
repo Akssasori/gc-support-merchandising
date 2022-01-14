@@ -25,34 +25,29 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public Program save(final Program program) throws InsertDataException {
 
+        Optional<Program> programDB;
+
         try {
 
-            Optional<Program> programDB = programRepository.findByName(program.getName());
+            programDB = programRepository.findByName(program.getName());
 
             if (programDB.isPresent()) {
 
-                if (!program.getName().isEmpty() && Objects.equals(programDB.get().getName().trim().toUpperCase(),
+                if (Objects.equals(programDB.get().getName().trim().toUpperCase(),
                         program.getName().trim().toUpperCase())) {
                     return programDB.get();
-                } else {
-
-                    return programRepository.save(program);
                 }
+
             } else {
 
-                if (!program.getName().trim().isEmpty()) {
-                    return programRepository.save(program);
-
-                } else {
-
-                    return null;
-                }
-
+                return programRepository.save(program);
             }
 
         } catch (Exception e) {
             throw new InsertDataException(e.getMessage());
         }
+
+        return programDB.get();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.globo.producao.apoio.models.Agency;
 import com.globo.producao.apoio.repositories.AgencyRepository;
 import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
+import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,20 +22,35 @@ public class AgencyServiceImpl implements AgencyService {
     private final AgencyRepository repository;
 
     @Override
-    public Agency save(Agency agency) {
+    @SneakyThrows
+    public Agency save(Agency agency) throws InsertDataException {
 
-        Agency agencyDB = repository.findByIdSiscom(agency.getIdSiscom());
+        Optional<Agency> agencyDB;
 
-        if (Objects.nonNull(agencyDB) && Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
-                Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
+        try {
 
-            return agencyDB;
+            agencyDB = repository.findByIdSiscom(agency.getIdSiscom());
 
+            if (agencyDB.isPresent()) {
 
-        } else {
+                if (Objects.equals(agencyDB.get().getName().trim().toUpperCase(),
+                        agency.getName().trim().toUpperCase())) {
+                    return agencyDB.get();
+                }
+            } else {
+                if (Objects.isNull(agency.getName()) || agency.getName().isEmpty()) {
+                    Agency agencyDefault = repository.findById(1L).get();
+                    return agencyDefault;
+                } else {
+                    return repository.save(agency);
+                }
+            }
 
-            return repository.save(agency);
+        } catch (Exception e) {
+            throw new InsertDataException(e.getMessage());
         }
+
+        return agencyDB.get();
     }
 
     @Override
@@ -82,6 +99,6 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public Agency findByIdSiscom(Long idSiscom) {
-        return repository.findByIdSiscom(idSiscom);
+        return repository.findByIdSiscom(idSiscom).get();
     }
 }

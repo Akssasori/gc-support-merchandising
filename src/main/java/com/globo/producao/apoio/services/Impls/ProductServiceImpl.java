@@ -26,33 +26,35 @@ public class ProductServiceImpl implements ProductService {
     @SneakyThrows
     public Product save(Product product) {
 
+        Optional<Product> productDB;
+
         try {
 
-            Optional<Product> productDB = repository.findByName(product.getName());
+            productDB = repository.findByName(product.getName());
 
             if (productDB.isPresent()) {
 
                 if (!product.getName().isEmpty() && Objects.equals(productDB.get().getName().trim().toUpperCase(),
                         product.getName().trim().toUpperCase())) {
                     return productDB.get();
-                } else {
-                    product.setName(product.getName());
-                    return repository.save(product);
                 }
 
             } else {
-                if (!product.getName().trim().isEmpty()) {
-                    product.setName(product.getName());
-                    return repository.save(product);
+                if (Objects.isNull(product.getName()) || product.getName().trim().isEmpty()) {
+                    Product productDefault = repository.findById(1L).get();
+                    return productDefault;
 
                 } else {
-                    return null;
+                    return repository.save(product);
+
                 }
             }
 
         } catch (Exception e) {
             throw new InsertDataException(e.getMessage());
         }
+        return productDB.get();
+
 
     }
 
