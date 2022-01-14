@@ -34,7 +34,7 @@ public class ActionServiceImpl implements ActionService {
 
 
     @Override
-    @Transactional
+//    @Transactional
     public Action save(Action action) throws Exception {
 
         if (Objects.nonNull(action)) {

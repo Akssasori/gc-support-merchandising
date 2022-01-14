@@ -13,9 +13,9 @@ spring:
     username: ${DBAAS_MYSQL_USER}
   jpa:
     generate-ddl: false
-#    open-in-view: true
+    open-in-view: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
 
 #app:
