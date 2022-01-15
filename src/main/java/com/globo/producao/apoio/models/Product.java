@@ -22,10 +22,6 @@ public class Product implements Serializable {
 
     private String name;
 
-//    @OneToOne
-//    @JoinColumn(name = "action_id")
-//    private Action action;
-
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Action action;
 

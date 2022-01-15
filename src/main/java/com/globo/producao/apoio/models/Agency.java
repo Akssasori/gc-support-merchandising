@@ -23,10 +23,6 @@ public class Agency implements Serializable {
 
     private Long idSiscom;
 
-//    @OneToOne
-//    @JoinColumn(name = "action_id")
-//    private Action action;
-
     @OneToOne(mappedBy = "agency", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Action action;
 

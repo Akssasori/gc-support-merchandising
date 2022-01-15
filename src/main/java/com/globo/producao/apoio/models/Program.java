@@ -26,10 +26,6 @@ public class Program implements Serializable {
     @Column(nullable = false)
     private String name;
 
-//    @OneToOne
-//    @JoinColumn(name = "action_id")
-//    private Action action;
-
     @OneToOne(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Action action;
 
