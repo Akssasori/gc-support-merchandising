@@ -79,7 +79,7 @@ public class ProgramServiceImpl implements ProgramService {
 
         } else {
 
-            programDB.setName(program.getName().toUpperCase());
+            programDB.setName(program.getName());
             programDB.setId(id);
             return programRepository.save(programDB);
 

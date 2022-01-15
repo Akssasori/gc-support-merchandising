@@ -7,6 +7,7 @@ import com.globo.producao.apoio.services.interfaces.ProductService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
+import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -72,18 +73,54 @@ public class ProductServiceImpl implements ProductService {
     @SneakyThrows
     public Product update(Long productId, Product product) {
 
-        Product productDB = repository.findByName(product.getName()).get();
+        Optional<Product> productDB;
 
-        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(),
-                productDB.getName().trim().toUpperCase())) {
-            return productDB;
-        } else {
+        try {
+            productDB = repository.findById(productId);
 
-            productDB.setId(productId);
-            productDB.setName(product.getName().toUpperCase());
-            return repository.save(productDB);
+            if (productDB.isPresent()) {
 
+                if (Objects.isNull(product.getName())) {
+
+                    return productDB.get();
+                }
+
+                if (Objects.equals(product.getName().trim().toUpperCase(),
+                        productDB.get().getName().trim().toUpperCase())) {
+                    return productDB.get();
+                }
+
+                if (product.getName().trim().isEmpty()) {
+                    return productDB.get();
+
+                } else {
+                    productDB.get().setId(productId);
+                    productDB.get().setName(product.getName());
+                    return repository.save(productDB.get());
+                }
+            } else {
+                return productDB.get();
+            }
+
+        } catch (Exception e) {
+            throw new UpdateDataException( e.getMessage());
         }
+
+
+//        Product productDB = repository.findById(productId).orElseThrow(() -> new NoEntityException(productId.toString()));
+//
+//
+//
+//        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(),
+//                productDB.getName().trim().toUpperCase())) {
+//            return productDB;
+//        } else {
+//
+//            productDB.setId(productId);
+//            productDB.setName(product.getName());
+//            return repository.save(productDB);
+//
+//        }
 
     }
 
