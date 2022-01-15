@@ -26,8 +26,11 @@ public class Client implements Serializable {
 
     private Long idSiscom;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "action_id")
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "action_id")
+//    private Action action;
+
+    @OneToOne(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Action action;
 
 

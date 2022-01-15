@@ -3,10 +3,10 @@
 -- -----------------------------------------------------
 --START TRANSACTION;
 
-INSERT INTO program (id, name) VALUES (1,'Programa 1');
-INSERT INTO program (id, name) VALUES (2,'Programa 2');
-INSERT INTO program (id, name) VALUES (3,'Programa 3');
-INSERT INTO program (id, name) VALUES (4,'CALDEIRAO DO HULK');
+INSERT INTO program (id, name) VALUES (1,'no registry');
+INSERT INTO program (id, name) VALUES (3,'mais voce');
+INSERT INTO program (id, name) VALUES (4,'bbb');
+INSERT INTO program (id, name) VALUES (5,'auto esporte');
 
 INSERT INTO client (id, name, id_siscom) VALUES (1,'no registry',0);
 INSERT INTO client (id, name, id_siscom) VALUES (2,'123 VIAGENS E TURISMO LTDA',419043);
