@@ -1,11 +1,13 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Agency;
+import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.repositories.AgencyRepository;
 import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.InsertDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
+import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -68,17 +70,52 @@ public class AgencyServiceImpl implements AgencyService {
     @SneakyThrows
     public Agency update(Long id, Agency agency) {
 
-        Agency agencyDB = repository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+        Optional<Agency> agencyDB;
 
-        if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
-                Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
-            return agencyDB;
-        } else {
-            agencyDB.setName(agency.getName());
-            agencyDB.setId(id);
-            agencyDB.setIdSiscom(agency.getIdSiscom());
-            return repository.save(agencyDB);
+        try{
+            agencyDB = repository.findById(id);
+
+            if (agencyDB.isPresent()) {
+
+                if (Objects.isNull(agency.getName())) {
+
+                    Agency agencyDefault = repository.findById(1L).get();
+                    return agencyDefault;
+                }
+
+                if (Objects.equals(agency.getName().trim().toUpperCase(),
+                        agencyDB.get().getName().trim().toUpperCase())) {
+                    return agencyDB.get();
+                }
+
+                if (agency.getName().trim().isEmpty()) {
+                    return agencyDB.get();
+
+                } else {
+                    agencyDB.get().setId(id);
+                    agencyDB.get().setName(agency.getName());
+                    agencyDB.get().setIdSiscom(agency.getIdSiscom());
+                    return repository.save(agencyDB.get());
+                }
+            } else {
+                return agencyDB.get();
+            }
+
+        } catch (Exception e) {
+            throw new UpdateDataException( e.getMessage());
         }
+
+//        Agency agencyDB = repository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+//
+//        if (Objects.equals(agencyDB.getName().trim().toUpperCase(), agency.getName().trim().toUpperCase()) &&
+//                Objects.equals(agencyDB.getIdSiscom(), agency.getIdSiscom())) {
+//            return agencyDB;
+//        } else {
+//            agencyDB.setName(agency.getName());
+//            agencyDB.setId(id);
+//            agencyDB.setIdSiscom(agency.getIdSiscom());
+//            return repository.save(agencyDB);
+//        }
     }
 
     @Override

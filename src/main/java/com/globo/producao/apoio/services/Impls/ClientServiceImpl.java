@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Client;
+import com.globo.producao.apoio.models.Product;
 import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.repositories.ClientRepository;
 import com.globo.producao.apoio.services.interfaces.ClientService;
@@ -76,17 +77,52 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client update(Long id, Client client) throws UpdateDataException {
 
-        Client clientDB = clientRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+        Optional<Client> clientDB;
 
-        if (Objects.equals(clientDB.getName().trim().toUpperCase(), client.getName().trim().toUpperCase()) &&
-                Objects.equals(clientDB.getIdSiscom(), client.getIdSiscom())) {
-            return clientDB;
-        } else {
-            clientDB.setName(client.getName());
-            clientDB.setId(id);
-            clientDB.setIdSiscom(client.getIdSiscom());
-            return clientRepository.save(clientDB);
+        try{
+            clientDB = clientRepository.findById(id);
+
+            if (clientDB.isPresent()) {
+
+                if (Objects.isNull(client.getName())) {
+
+                    Client clientDefault = clientRepository.findById(1L).get();
+                    return clientDefault;
+                }
+
+                if (Objects.equals(client.getName().trim().toUpperCase(),
+                        clientDB.get().getName().trim().toUpperCase())) {
+                    return clientDB.get();
+                }
+
+                if (client.getName().trim().isEmpty()) {
+                    return clientDB.get();
+
+                } else {
+                    clientDB.get().setId(id);
+                    clientDB.get().setName(client.getName());
+                    clientDB.get().setIdSiscom(client.getIdSiscom());
+                    return clientRepository.save(clientDB.get());
+                }
+            } else {
+                return clientDB.get();
+            }
+
+        } catch (Exception e) {
+            throw new UpdateDataException( e.getMessage());
         }
+
+//        Client clientDB = clientRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+//
+//        if (Objects.equals(clientDB.getName().trim().toUpperCase(), client.getName().trim().toUpperCase()) &&
+//                Objects.equals(clientDB.getIdSiscom(), client.getIdSiscom())) {
+//            return clientDB;
+//        } else {
+//            clientDB.setName(client.getName());
+//            clientDB.setId(id);
+//            clientDB.setIdSiscom(client.getIdSiscom());
+//            return clientRepository.save(clientDB);
+//        }
 
     }
 

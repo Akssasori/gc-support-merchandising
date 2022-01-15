@@ -69,7 +69,7 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public Program Update(Long id, Program program) throws UpdateDataException {
+    public Program Update(Long id, Program program) {
 
         Program programDB = programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
