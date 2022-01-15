@@ -82,7 +82,8 @@ public class ProductServiceImpl implements ProductService {
 
                 if (Objects.isNull(product.getName())) {
 
-                    return productDB.get();
+                    Product productDefault = repository.findById(1L).get();
+                    return productDefault;
                 }
 
                 if (Objects.equals(product.getName().trim().toUpperCase(),
@@ -106,21 +107,6 @@ public class ProductServiceImpl implements ProductService {
             throw new UpdateDataException( e.getMessage());
         }
 
-
-//        Product productDB = repository.findById(productId).orElseThrow(() -> new NoEntityException(productId.toString()));
-//
-//
-//
-//        if (Objects.nonNull(productDB) && Objects.equals(product.getName().trim().toUpperCase(),
-//                productDB.getName().trim().toUpperCase())) {
-//            return productDB;
-//        } else {
-//
-//            productDB.setId(productId);
-//            productDB.setName(product.getName());
-//            return repository.save(productDB);
-//
-//        }
 
     }
 
