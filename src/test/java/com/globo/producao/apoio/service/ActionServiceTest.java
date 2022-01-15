@@ -57,16 +57,16 @@ public class ActionServiceTest extends BaseTest {
     @DisplayName("Should return Action saved with success.")
     public void shouldReturnPersonAgencyAddressFindByFilter() throws Exception {
 
-        doReturn(ActionFaker.getAction().getClient()).when(clientRepository).findByIdSiscom(ActionFaker.getAction().getClient().getIdSiscom());
+        doReturn(Optional.of(ActionFaker.getAction().getClient())).when(clientRepository).findByIdSiscom(ActionFaker.getAction().getClient().getIdSiscom());
         doReturn(ActionFaker.getAction().getClient()).when(clientService).save(ActionFaker.getAction().getClient());
 
-        doReturn(ActionFaker.getAction().getAgency()).when(agencyRepository).findByIdSiscom(ActionFaker.getAction().getAgency().getIdSiscom());
+        doReturn(Optional.of(ActionFaker.getAction().getAgency())).when(agencyRepository).findByIdSiscom(ActionFaker.getAction().getAgency().getIdSiscom());
         doReturn(ActionFaker.getAction().getAgency()).when(agencyService).save(ActionFaker.getAction().getAgency());
 
-        doReturn(ActionFaker.getAction().getProduct()).when(productRepository).findByName(ActionFaker.getAction().getProduct().getName());
+        doReturn(Optional.of(ActionFaker.getAction().getProduct())).when(productRepository).findByName(ActionFaker.getAction().getProduct().getName());
         doReturn(ActionFaker.getAction().getProduct()).when(productService).save(ActionFaker.getAction().getProduct());
 
-        doReturn(ActionFaker.getAction().getProgram()).when(programRepository).findByName(ActionFaker.getAction().getProgram().getName());
+        doReturn(Optional.of(ActionFaker.getAction().getProgram())).when(programRepository).findByName(ActionFaker.getAction().getProgram().getName());
         doReturn(ActionFaker.getAction().getProgram()).when(programService).save(ActionFaker.getAction().getProgram());
 
         doReturn(ActionFaker.getAction()).when(actionRepository).save(ActionFaker.getAction());

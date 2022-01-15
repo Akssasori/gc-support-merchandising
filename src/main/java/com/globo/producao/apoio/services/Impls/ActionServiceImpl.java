@@ -1,13 +1,11 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Action;
-import com.globo.producao.apoio.models.Agency;
 import com.globo.producao.apoio.repositories.ActionRepository;
 import com.globo.producao.apoio.services.interfaces.ActionService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
 import com.globo.producao.apoio.utils.exceptions.FindDataException;
 import com.globo.producao.apoio.utils.exceptions.NoEntityException;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.util.List;
