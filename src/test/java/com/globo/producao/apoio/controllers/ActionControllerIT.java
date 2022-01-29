@@ -3,13 +3,9 @@ package com.globo.producao.apoio.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.globo.producao.apoio.config.BaseTest;
 import com.globo.producao.apoio.fakerModal.ActionFaker;
-import com.globo.producao.apoio.fakerModal.AgencyFaker;
 import com.globo.producao.apoio.mappers.ActionMapper;
-import com.globo.producao.apoio.mappers.AgencyMapper;
 import com.globo.producao.apoio.models.Action;
-import com.globo.producao.apoio.models.Program;
 import com.globo.producao.apoio.services.interfaces.ActionService;
-import com.globo.producao.apoio.services.interfaces.AgencyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -70,7 +67,7 @@ public class ActionControllerIT extends BaseTest {
     @DisplayName("Should save action with success.")
     public void shouldReturnActionSavedWithSuccess() throws Exception {
 
-        doReturn(ActionFaker.getAction()).when(service).save(ActionFaker.getAction());
+        doReturn(ActionFaker.getAction()).when(service).save(any(Action.class));
 
         mockMvc.perform(post(URI_SAVE_ACTION)
                         .content(new ObjectMapper().writeValueAsString(ActionFaker.getAction()))
