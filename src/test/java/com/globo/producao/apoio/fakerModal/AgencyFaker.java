@@ -19,6 +19,22 @@ public class AgencyFaker {
                 .build();
     }
 
+    public static Agency getAgencyGetDifferentName() {
+        return Agency.builder()
+                .id(4L)
+                .name("FLASH2563")
+                .idSiscom(44043L)
+                .build();
+    }
+
+    public static Agency getAgencyGetEmptyName() {
+        return Agency.builder()
+                .id(4L)
+                .name("")
+                .idSiscom(44043L)
+                .build();
+    }
+
 
 
 }

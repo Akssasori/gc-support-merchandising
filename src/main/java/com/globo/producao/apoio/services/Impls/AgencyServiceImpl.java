@@ -1,7 +1,6 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Agency;
-import com.globo.producao.apoio.models.Client;
 import com.globo.producao.apoio.repositories.AgencyRepository;
 import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.utils.exceptions.DeleteDataException;
