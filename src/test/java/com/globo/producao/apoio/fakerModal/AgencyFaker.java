@@ -35,6 +35,22 @@ public class AgencyFaker {
                 .build();
     }
 
+    public static Agency getAgencyNoPresent() {
+        return Agency.builder()
+                .id(900L)
+                .name(null)
+                .idSiscom(9000L)
+                .build();
+    }
+
+    public static Agency getAgencyDefault() {
+        return Agency.builder()
+                .id(1L)
+                .name("no registry")
+                .idSiscom(0L)
+                .build();
+    }
+
 
 
 }

@@ -44,6 +44,21 @@ public class AgencyServiceTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Should return Agency saved with success.")
+    public void shouldReturnAgencySaveWhenAgencyNoPresent() throws Exception {
+
+        doReturn(Optional.of(AgencyFaker.getAgencyNoPresent())).when(agencyRepository).findByIdSiscom(1L);
+        doReturn(Optional.of(AgencyFaker.getAgencyDefault())).when(agencyRepository).findById(anyLong());
+
+        Agency response = agencyService.save(AgencyFaker.getAgencyNoPresent());
+
+        verify(agencyRepository, times(1)).findByIdSiscom(anyLong());
+
+        assertNotNull(response);
+
+    }
+
+    @Test
     @DisplayName("Should return List of agency with success.")
     public void shouldReturnListAction() throws Exception {
 
