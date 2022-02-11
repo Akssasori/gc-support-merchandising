@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -75,6 +77,17 @@ public class ActionServiceTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Should return Action empty when action null.")
+    public void shouldReturnActionEmpty() throws Exception {
+
+        doReturn(ActionFaker.getAction()).when(actionRepository).save(ActionFaker.getAction());
+        Action response = actionService.save(null);
+
+        assertNotNull(response);
+
+    }
+
+    @Test
     @DisplayName("Should return List of action with success.")
     public void shouldReturnListAction() throws Exception {
 
@@ -126,8 +139,34 @@ public class ActionServiceTest extends BaseTest {
         verify(actionRepository, times(1)).existsById(anyLong());
         verify(actionRepository, times(1)).deleteById(anyLong());
 
+    }
 
+    @Test
+    @DisplayName("Should return not found when existById false in delete action.")
+    public void shouldReturnNotFoundInActionDelete() throws Exception {
 
+        doReturn(false).when(actionRepository).existsById(anyLong());
+        doNothing().when(actionRepository).deleteById(anyLong());
+
+        actionService.delete(800000L);
+
+        verify(actionRepository, times(1)).existsById(anyLong());
+
+    }
+
+    @Test
+    @DisplayName("Should return a Exception when update action.")
+    public void shouldReturnExceptionWhenActionForUpdate() throws Exception {
+
+        doThrow(new RuntimeException("Teste"))
+                .when(programService)
+                .Update(anyLong(), any(Program.class));
+
+        assertThrows(
+                Exception.class,
+                () -> {
+                    actionService.update(anyLong(), any(Action.class));
+                });
 
     }
 
