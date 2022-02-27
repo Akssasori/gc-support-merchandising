@@ -25,32 +25,25 @@ public class ClientServiceImpl implements ClientService {
     @SneakyThrows
     public Client save(Client client) {
 
-        Optional<Client> clientDB;
+        var clientDB = clientRepository.findByName(client.getName());
 
-        try {
+        if (clientDB.isPresent()) {
 
-            clientDB = clientRepository.findByName(client.getName());
-
-            if (clientDB.isPresent()) {
-
-                if (Objects.equals(clientDB.get().getName().trim().toUpperCase(),
-                        client.getName().trim().toUpperCase())) {
-                    return clientDB.get();
-                }
-
-            } else {
-
-                if (Objects.isNull(client.getName()) || client.getName().isEmpty()) {
-                    Client clientDefault = clientRepository.findById(1L).get();
-                    return clientDefault;
-                } else {
-                    return clientRepository.save(client);
-                }
+            if (Objects.equals(clientDB.get().getName().trim().toUpperCase(),
+                    client.getName().trim().toUpperCase())) {
+                return clientDB.get();
             }
 
-        } catch (Exception e) {
-            throw new InsertDataException(e.getMessage());
+        } else {
+
+            if (Objects.isNull(client.getName()) || client.getName().isEmpty()) {
+                Client clientDefault = clientRepository.findById(1L).get();
+                return clientDefault;
+            } else {
+                return clientRepository.save(client);
+            }
         }
+
 
         return clientDB.get();
     }
@@ -79,7 +72,7 @@ public class ClientServiceImpl implements ClientService {
 
         Optional<Client> clientDB;
 
-        try{
+        try {
             clientDB = clientRepository.findById(id);
 
             if (clientDB.isPresent()) {
@@ -109,7 +102,7 @@ public class ClientServiceImpl implements ClientService {
             }
 
         } catch (Exception e) {
-            throw new UpdateDataException( e.getMessage());
+            throw new UpdateDataException(e.getMessage());
         }
 
 //        Client clientDB = clientRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
