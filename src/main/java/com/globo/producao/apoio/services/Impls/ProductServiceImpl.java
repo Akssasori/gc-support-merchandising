@@ -10,6 +10,7 @@ import com.globo.producao.apoio.utils.exceptions.NoEntityException;
 import com.globo.producao.apoio.utils.exceptions.UpdateDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,41 +22,34 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
+    public static final long DEFAULT_REPOSITORY = 1L;
+
     private final ProductRepository repository;
 
     @Override
     @SneakyThrows
     public Product save(Product product) {
 
-        Optional<Product> productDB;
+        var productDB = repository.findByName(product.getName());
 
-        try {
+        if (productDB.isPresent()) {
 
-            productDB = repository.findByName(product.getName());
-
-            if (productDB.isPresent()) {
-
-                if (!product.getName().isEmpty() && Objects.equals(productDB.get().getName().trim().toUpperCase(),
-                        product.getName().trim().toUpperCase())) {
-                    return productDB.get();
-                }
-
-            } else {
-                if (Objects.isNull(product.getName()) || product.getName().trim().isEmpty()) {
-                    Product productDefault = repository.findById(1L).get();
-                    return productDefault;
-
-                } else {
-                    return repository.save(product);
-
-                }
+            if (Objects.equals(productDB.get().getName().trim().toUpperCase(),
+                    product.getName().trim().toUpperCase())) {
+                return productDB.get();
             }
 
-        } catch (Exception e) {
-            throw new InsertDataException(e.getMessage());
-        }
-        return productDB.get();
+        } else {
+            if (StringUtils.isBlank(product.getName())) {
+                return repository.findById(DEFAULT_REPOSITORY).get();
 
+            } else {
+                return repository.save(product);
+
+            }
+        }
+
+        return productDB.get();
 
     }
 
@@ -73,38 +67,16 @@ public class ProductServiceImpl implements ProductService {
     @SneakyThrows
     public Product update(Long productId, Product product) {
 
-        Optional<Product> productDB;
+        var productDB = repository.findById(productId).orElseThrow(() -> new NoEntityException(productId.toString()));
 
-        try {
-            productDB = repository.findById(productId);
+        if (Objects.equals(product.getName().trim().toUpperCase(),
+                productDB.getName().trim().toUpperCase())) {
+            return productDB;
 
-            if (productDB.isPresent()) {
-
-                if (Objects.isNull(product.getName())) {
-
-                    Product productDefault = repository.findById(1L).get();
-                    return productDefault;
-                }
-
-                if (Objects.equals(product.getName().trim().toUpperCase(),
-                        productDB.get().getName().trim().toUpperCase())) {
-                    return productDB.get();
-                }
-
-                if (product.getName().trim().isEmpty()) {
-                    return productDB.get();
-
-                } else {
-                    productDB.get().setId(productId);
-                    productDB.get().setName(product.getName());
-                    return repository.save(productDB.get());
-                }
-            } else {
-                return productDB.get();
-            }
-
-        } catch (Exception e) {
-            throw new UpdateDataException( e.getMessage());
+        } else {
+            productDB.setId(productId);
+            productDB.setName(product.getName());
+            return repository.save(productDB);
         }
 
 
@@ -112,21 +84,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findByName(String name) {
-        return repository.findByName(name.trim().toUpperCase()).get();
+        return repository.findByName(name).orElseThrow(() -> new NoEntityException(name));
     }
 
     @Override
     @SneakyThrows
     public void delete(Long productId) {
-        try {
-            if (repository.existsById(productId)) {
-                repository.deleteById(productId);
-            } else {
-                ResponseEntity.notFound();
-            }
-        } catch (Exception e) {
-            throw new DeleteDataException(e.getMessage());
-        }
 
+        if (repository.existsById(productId)) {
+            repository.deleteById(productId);
+        } else {
+            throw new NoEntityException(productId.toString());
+        }
     }
+
+
 }
