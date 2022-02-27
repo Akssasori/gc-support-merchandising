@@ -8,12 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -25,47 +23,27 @@ public class ProgramServiceImpl implements ProgramService {
     @Override
     public Program save(final Program program) throws InsertDataException {
 
-        Optional<Program> programDB;
+        var programDB = programRepository.findByName(program.getName());
 
-        try {
+        if (programDB.isPresent() && Objects.equals(programDB.get().getName().trim().toUpperCase(),
+                program.getName().trim().toUpperCase())) {
 
-            programDB = programRepository.findByName(program.getName());
-
-            if (programDB.isPresent()) {
-
-                if (Objects.equals(programDB.get().getName().trim().toUpperCase(),
-                        program.getName().trim().toUpperCase())) {
-                    return programDB.get();
-                }
-
-            } else {
-
-                return programRepository.save(program);
+                return programDB.get();
             }
 
-        } catch (Exception e) {
-            throw new InsertDataException(e.getMessage());
-        }
+        return programRepository.save(program);
 
-        return programDB.get();
     }
 
     @Override
     public List<Program> findAll() throws FindAllDataException {
-        try {
-            return programRepository.findAll();
-        } catch (Exception e) {
-            throw new FindAllDataException(e.getMessage());
-        }
+        return programRepository.findAll();
     }
 
     @Override
     public Program findById(Long id) throws FindDataException {
-        try {
-            return programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
-        } catch (Exception e) {
-            throw new FindDataException(e.getMessage());
-        }
+        return programRepository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
+
     }
 
     @Override
@@ -94,16 +72,14 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public void Delete(Long id) throws DeleteDataException {
-        try {
-            if (programRepository.existsById(id)) {
-                programRepository.deleteById(id);
-            } else {
-                ResponseEntity.notFound();
-            }
-        } catch (Exception e) {
-            throw new DeleteDataException(e.getMessage());
+    public void Delete(Long id) {
+
+        if (programRepository.existsById(id)) {
+            programRepository.deleteById(id);
+        } else {
+            throw new NoEntityException(id.toString());
         }
+
     }
 
     @Override

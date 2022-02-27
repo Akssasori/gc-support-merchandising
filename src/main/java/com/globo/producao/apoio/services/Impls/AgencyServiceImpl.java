@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -74,10 +75,7 @@ public class AgencyServiceImpl implements AgencyService {
         try{
             agencyDB = repository.findById(id);
 
-            if (agencyDB.isPresent()) {
-
-                if (Objects.isNull(agency.getName())) {
-
+                if (StringUtils.isBlank(agency.getName())) {
                     Agency agencyDefault = repository.findById(1L).get();
                     return agencyDefault;
                 }
@@ -96,9 +94,6 @@ public class AgencyServiceImpl implements AgencyService {
                     agencyDB.get().setIdSiscom(agency.getIdSiscom());
                     return repository.save(agencyDB.get());
                 }
-            } else {
-                return agencyDB.get();
-            }
 
         } catch (Exception e) {
             throw new UpdateDataException( e.getMessage());
