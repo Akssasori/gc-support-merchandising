@@ -41,7 +41,6 @@ public class ClientServiceImpl implements ClientService {
             }
         }
 
-
         return clientDB.get();
     }
 
