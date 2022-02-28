@@ -15,7 +15,7 @@ spring:
     generate-ddl: false
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
 
 #app:

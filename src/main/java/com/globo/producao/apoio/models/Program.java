@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,8 +27,8 @@ public class Program implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Action action;
+    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Action> action;
 
 
 
