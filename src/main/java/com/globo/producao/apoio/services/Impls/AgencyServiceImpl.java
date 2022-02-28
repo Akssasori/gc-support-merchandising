@@ -61,7 +61,8 @@ public class AgencyServiceImpl implements AgencyService {
         var agencyDB = repository.findById(id).orElseThrow(() -> new NoEntityException(id.toString()));
 
         if (Objects.equals(agency.getName().trim().toUpperCase(),
-                agencyDB.getName().trim().toUpperCase())) {
+                agencyDB.getName().trim().toUpperCase()) &&
+                Objects.equals(agency.getIdSiscom(), agencyDB.getIdSiscom())) {
             return agencyDB;
         } else {
             agencyDB.setId(id);
