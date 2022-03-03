@@ -71,10 +71,10 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
             actionDB.setDuration(Duration(action));
-            actionDB.setProgram(programService.Update(action.getProgram().getId(), action.getProgram()));
-            actionDB.setAgency(agencyService.update(action.getAgency().getId(), action.getAgency()));
-            actionDB.setClient(clientService.update(action.getClient().getId(), action.getClient()));
-            actionDB.setProduct(productService.update(action.getProduct().getId(), action.getProduct()));
+            actionDB.setProgram(action.getProgram());
+            actionDB.setAgency(action.getAgency());
+            actionDB.setClient(action.getClient());
+            actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
             return repository.save(actionDB);
         } catch (Exception e) {
