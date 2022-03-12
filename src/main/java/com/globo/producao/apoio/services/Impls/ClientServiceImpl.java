@@ -34,14 +34,15 @@ public class ClientServiceImpl implements ClientService {
 
         } else {
             if (StringUtils.isBlank(client.getName())) {
-                return clientRepository.findById(DEFAULT_REPOSITORY).get();
 
+                client.setId(1L);
+                client.setName("NO REGISTRY");
+                client.setIdSiscom(0L);
             } else {
                 return clientRepository.save(client);
             }
         }
-
-        return clientDB.get();
+        return clientRepository.save(client);
     }
 
 

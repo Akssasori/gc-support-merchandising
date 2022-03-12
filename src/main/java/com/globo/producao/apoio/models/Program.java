@@ -22,7 +22,7 @@ public class Program implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Program may not be empty")
+    @NotEmpty(message = "Program not be empty")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     @Column(nullable = false)
     private String name;

@@ -34,14 +34,16 @@ public class AgencyServiceImpl implements AgencyService {
             }
         } else {
             if (StringUtils.isBlank(agency.getName())) {
-                return repository.findById(DEFAULT_REPOSITORY).get();
+                agency.setId(1L);
+                agency.setName("NO REGISTRY");
+                agency.setIdSiscom(0L);
 
             } else {
                 return repository.save(agency);
             }
         }
 
-        return agencyDB.get();
+        return repository.save(agency);
     }
 
     @Override
