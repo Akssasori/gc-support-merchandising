@@ -106,8 +106,11 @@ public class ActionServiceImpl implements ActionService {
     private Duration Duration(final Action action) {
 
         Duration duration = Duration.between(action.getStartTime(), action.getEndTime());
-//        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
-//        System.out.println("aaaaaaaaaaaaaaaaaa" + formattedTime);
+        System.out.println(duration);
+        String formattedTime = String.format("%02d:%02d:%02d", duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
+        String formattedTime2 = String.format("%02d:%02d:%02d", duration.toHours(), duration.toMinutesPart(), duration.toSecondsPart());
+        System.out.println("aaaaaaaaaaaaaaaaaa" + formattedTime);
+        System.out.println("bbbbbbbbbbbbbbbbbb" + formattedTime2);
         action.setDuration(duration);
 
         return duration;

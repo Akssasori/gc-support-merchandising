@@ -20,7 +20,7 @@ INSERT INTO agency (id, name, id_siscom) VALUES (5,'FLASH',44043);
 
 INSERT INTO product (id, name) VALUES (1,'NO REGISTRY');
 INSERT INTO product (id, name) VALUES (2,'coca cola');
-INSERT INTO product (id, name) VALUES (2,'fiat');
+INSERT INTO product (id, name) VALUES (3,'fiat');
 
 --INSERT INTO action (id, type_action, review_date, start_time, end_time, program, agency, client, product, paytvflag )
 --VALUES (1, 'ACAO', "")
