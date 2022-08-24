@@ -16,7 +16,7 @@ spring:
       maximum-pool-size: 5
       minimum-idle: 2
   jpa:
-    open-in-view: true
+    open-in-view: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:

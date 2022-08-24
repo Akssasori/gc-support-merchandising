@@ -14,7 +14,7 @@
     <name>apoio</name>
     <description>API restful for apoio merchandising</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <lombok.version>1.18.20</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
@@ -145,6 +145,8 @@
                             <version>${lombok-mapstruct-binding.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
