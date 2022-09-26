@@ -1,6 +1,7 @@
 package com.globo.producao.apoio.services.Impls;
 
 import com.globo.producao.apoio.models.Agency;
+import com.globo.producao.apoio.models.enums.DefaultValueEnum;
 import com.globo.producao.apoio.repositories.AgencyRepository;
 import com.globo.producao.apoio.services.interfaces.AgencyService;
 import com.globo.producao.apoio.utils.exceptions.InsertDataException;
@@ -32,15 +33,14 @@ public class AgencyServiceImpl implements AgencyService {
                     agency.getName().trim().toUpperCase())) {
                 return agencyDB.get();
             }
-        } else {
-            if (StringUtils.isBlank(agency.getName())) {
-                agency.setId(1L);
-                agency.setName("NO REGISTRY");
-                agency.setIdSiscom(0L);
+        }
 
-            } else {
-                return repository.save(agency);
-            }
+        if (StringUtils.isBlank(agency.getName())) {
+
+            agency.setId(DefaultValueEnum.NO_REGISTRY.getId());
+            agency.setName(DefaultValueEnum.NO_REGISTRY.toString());
+            agency.setIdSiscom(DefaultValueEnum.NO_REGISTRY.getId());
+
         }
 
         return repository.save(agency);
