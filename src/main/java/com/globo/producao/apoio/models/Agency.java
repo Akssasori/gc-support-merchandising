@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,7 +24,7 @@ public class Agency implements Serializable {
     private Long idSiscom;
 
     @OneToMany(mappedBy = "agency", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Action> action;
+    private Set<Action> action;
 
 
 

@@ -30,7 +30,8 @@ public class ActionServiceImpl implements ActionService {
 
 
     @Override
-    public Action save(Action action) throws Exception {
+    @SneakyThrows
+    public Action save(Action action) {
 
         if (Objects.nonNull(action)) {
 
@@ -48,8 +49,8 @@ public class ActionServiceImpl implements ActionService {
     }
 
     @Override
-    public List<Action> findAll() {
-        return repository.findAll();
+    public List<Action> findAllAction() {
+        return repository.findAllAction();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setId(actionId);
             actionDB.setTypeAction(action.getTypeAction());
             actionDB.setDescription(action.getDescription());
-            actionDB.setReviewDate(action.getReviewDate());
+            actionDB.setReviewTime(action.getReviewTime());
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
             actionDB.setDuration(Duration(action));

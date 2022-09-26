@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ActionService {
 
-    Action save(Action action) throws Exception;
+    Action save(Action action);
 
-    List<Action> findAll();
+    List<Action>findAllAction();
 
     Action findById(Long ActionId);
 

@@ -9,6 +9,7 @@ import com.globo.producao.apoio.models.Product;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface AgencyMapper {
@@ -17,7 +18,7 @@ public interface AgencyMapper {
 
     AgencyResponseDTO agencyToAgencyResponseDTO(Agency agency);
 
-    List<AgencyResponseDTO> agencyListToAgencyResponseDTO(List<Agency> agencies );
+    List<AgencyResponseDTO> agencyListToAgencyResponseDTO(Set<Agency> agencies );
 
 
 }

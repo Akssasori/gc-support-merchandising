@@ -6,6 +6,7 @@ import com.globo.producao.apoio.models.Client;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
@@ -14,7 +15,7 @@ public interface ClientMapper {
 
     ClientResponseDTO clientToClientResponseDTO(Client client);
 
-    List<ClientResponseDTO> clientListToClientResponseDTOList(List<Client> clients);
+    List<ClientResponseDTO> clientListToClientResponseDTOList(Set<Client> clients);
 
 //    default Page<ProgramResponseDto> programToProgramResponseDTOPage(Page<Program> programs){
 //        return programs.map(this::programToProgramResponseDTO);

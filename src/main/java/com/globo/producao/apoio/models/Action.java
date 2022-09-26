@@ -26,8 +26,11 @@ public class Action implements Serializable {
 
     private String description;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime reviewTime;
 
-    private LocalDateTime reviewDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
@@ -37,6 +40,8 @@ public class Action implements Serializable {
 
     @JsonFormat(pattern = "HH:mm:ss")
     private Duration duration;
+
+    private Boolean payTVFlag;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
@@ -53,8 +58,6 @@ public class Action implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "agency_id")
     private Agency agency;
-
-    private Boolean payTVFlag;
 
 
 }

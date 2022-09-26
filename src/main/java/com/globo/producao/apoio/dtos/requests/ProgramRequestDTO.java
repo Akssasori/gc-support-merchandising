@@ -1,22 +1,18 @@
 package com.globo.producao.apoio.dtos.requests;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProgramRequestDTO implements Serializable {
 
-    /**
-     * Program name.
-     */
+    @NotEmpty
     private String name;
 
 }

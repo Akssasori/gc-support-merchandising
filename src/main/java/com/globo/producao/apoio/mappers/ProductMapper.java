@@ -6,6 +6,7 @@ import com.globo.producao.apoio.models.Product;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
@@ -14,7 +15,7 @@ public interface ProductMapper {
 
     ProductResponseDTO productToProductResponseDTO(Product product);
 
-    List<ProductResponseDTO> productListToProductResponseDTOList(List<Product> products);
+    List<ProductResponseDTO> productListToProductResponseDTOList(Set<Product> products);
 
 
 }

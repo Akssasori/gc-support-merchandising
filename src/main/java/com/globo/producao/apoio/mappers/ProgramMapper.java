@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProgramMapper {
@@ -15,7 +16,7 @@ public interface ProgramMapper {
 
     ProgramResponseDTO programToProgramResponseDTO(Program program);
 
-    List<ProgramResponseDTO> programListToProgramResponseDtoList(List<Program> programs);
+    List<ProgramResponseDTO> programListToProgramResponseDtoList(Set<Program> programs);
 
     default Page<ProgramResponseDTO> programToProgramResponseDTOPage(Page<Program> programs){
         return programs.map(this::programToProgramResponseDTO);

@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -37,7 +38,7 @@ public class AgencyController {
     @GetMapping
     public ResponseEntity<List<AgencyResponseDTO>> getAgencies() {
 
-        return status(HttpStatus.OK).body(mapper.agencyListToAgencyResponseDTO(service.findAll()));
+        return status(HttpStatus.OK).body(mapper.agencyListToAgencyResponseDTO(new HashSet<>(service.findAll())));
 
     }
 

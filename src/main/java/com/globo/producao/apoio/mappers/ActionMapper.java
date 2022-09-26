@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ActionMapper {
@@ -15,7 +16,7 @@ public interface ActionMapper {
 
     ActionResponseDTO actionToActionResponseDTO(Action action);
 
-    List<ActionResponseDTO> actionListToActionResponseDTOList(List<Action> actions);
+    List<ActionResponseDTO> actionListToActionResponseDTOList(Set<Action> actions);
 
     default Page<ActionResponseDTO> actionToActionResponseDTOPage(Page<Action> actions){
         return actions.map(this::actionToActionResponseDTO);

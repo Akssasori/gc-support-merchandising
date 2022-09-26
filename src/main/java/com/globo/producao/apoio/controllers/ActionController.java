@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -30,7 +31,7 @@ public class ActionController {
     @GetMapping
     public ResponseEntity<List<ActionResponseDTO>> getActions() {
 
-        return status(HttpStatus.OK).body(mapper.actionListToActionResponseDTOList(service.findAll()));
+        return status(HttpStatus.OK).body(mapper.actionListToActionResponseDTOList(new HashSet<>(service.findAllAction())));
 
     }
 
@@ -45,7 +46,7 @@ public class ActionController {
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<ActionResponseDTO> saveAction
-            (@Valid @RequestBody final ActionRequestDTO actionRequestDTO) throws Exception {
+            (@Valid @RequestBody final ActionRequestDTO actionRequestDTO) {
 
         return status(HttpStatus.CREATED).body(mapper.actionToActionResponseDTO(
                 service.save(mapper.actionRequestDtoToAction(actionRequestDTO))));

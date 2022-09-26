@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,7 +31,7 @@ public class Product implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Action> action;
+    private Set<Action> action;
 
 
 }

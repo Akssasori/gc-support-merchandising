@@ -1,13 +1,10 @@
 package com.globo.producao.apoio.dtos.requests;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.globo.producao.apoio.models.enums.TypeActionEnum;
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -20,13 +17,10 @@ public class ActionRequestDTO implements Serializable {
 
     private String description;
 
-    @JsonIgnore
-    private LocalDateTime reviewDate = LocalDateTime.now();
+    private LocalDateTime reviewDate;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     private ProgramRequestDTO program;

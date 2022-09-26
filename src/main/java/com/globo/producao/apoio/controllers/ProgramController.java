@@ -19,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -36,7 +38,7 @@ public class ProgramController {
     public ResponseEntity<List<ProgramResponseDTO>> getPrograms() throws FindAllDataException {
 
         return status(HttpStatus.OK).body(mapper
-                .programListToProgramResponseDtoList(service.findAll()));
+                .programListToProgramResponseDtoList(new HashSet<>(service.findAll())));
 
     }
 
