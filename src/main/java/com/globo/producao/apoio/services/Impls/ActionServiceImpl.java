@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     @SneakyThrows
+    @Transactional
     public Action save(Action action) {
 
         if (Objects.nonNull(action)) {
@@ -42,6 +44,8 @@ public class ActionServiceImpl implements ActionService {
             action.setAgency(agencyService.save(action.getAgency()));
             action.setClient(clientService.save(action.getClient()));
             action.setReviewTime(LocalDateTime.now());
+            action.setStartTime(action.getStartTime());
+            action.setEndTime(action.getEndTime());
             return repository.save(action);
 
         } else {
