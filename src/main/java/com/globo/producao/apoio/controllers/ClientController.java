@@ -32,7 +32,7 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getClients() throws FindDataException {
 
-        return status(HttpStatus.OK).body(mapper
+        return ResponseEntity.ok().body(mapper
                 .clientListToClientResponseDTOList(new HashSet<>(service.findAll())));
 
     }
@@ -41,7 +41,7 @@ public class ClientController {
     public ResponseEntity<ClientResponseDTO> getClientById
             (@PathVariable final Long id) throws FindDataException {
 
-        return status(HttpStatus.OK).body(mapper
+        return ResponseEntity.ok().body(mapper
                 .clientToClientResponseDTO(service.findById(id)));
 
     }
@@ -51,7 +51,7 @@ public class ClientController {
     public ResponseEntity<ClientResponseDTO> createClient
             (@Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws Exception {
 
-        return status(HttpStatus.CREATED).body(mapper.clientToClientResponseDTO(
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.clientToClientResponseDTO(
                 (Client) service.save(mapper.clientRequestDTOToClient(clientRequestDTO))));
     }
 
@@ -60,7 +60,7 @@ public class ClientController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ClientRequestDTO clientRequestDTO) throws UpdateDataException {
 
-        return status(HttpStatus.OK).body(mapper.clientToClientResponseDTO
+        return ResponseEntity.ok().body(mapper.clientToClientResponseDTO
                 (service.update(id, mapper.clientRequestDTOToClient(clientRequestDTO))));
 
     }
@@ -79,7 +79,7 @@ public class ClientController {
     public ResponseEntity<ClientResponseDTO> getClientByIdSiscom
             (@PathVariable final Long idSiscom) throws FindDataException {
 
-        return status(HttpStatus.OK).body(mapper
+        return ResponseEntity.ok().body(mapper
                 .clientToClientResponseDTO(service.findByIdSiscom(idSiscom)));
 
     }

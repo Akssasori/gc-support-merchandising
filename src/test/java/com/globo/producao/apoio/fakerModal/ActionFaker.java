@@ -30,7 +30,7 @@ public class ActionFaker {
                 .typeAction(TypeActionEnum.ACAO)
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now().plusHours(1L))
-                .reviewDate(LocalDateTime.now())
+                .reviewTime(LocalDateTime.now())
                 .payTVFlag(false)
                 .build();
     }

@@ -31,7 +31,7 @@ public class ActionController {
     @GetMapping
     public ResponseEntity<List<ActionResponseDTO>> getActions() {
 
-        return status(HttpStatus.OK).body(mapper.actionListToActionResponseDTOList(new HashSet<>(service.findAllAction())));
+        return ResponseEntity.ok().body(mapper.actionListToActionResponseDTOList(new HashSet<>(service.findAllAction())));
 
     }
 
@@ -39,7 +39,7 @@ public class ActionController {
     public ResponseEntity<ActionResponseDTO> getActionById
             (@PathVariable final Long id) {
 
-        return status(HttpStatus.OK).body(mapper.actionToActionResponseDTO(service.findById(id)));
+        return ResponseEntity.ok().body(mapper.actionToActionResponseDTO(service.findById(id)));
 
     }
 
@@ -48,7 +48,7 @@ public class ActionController {
     public ResponseEntity<ActionResponseDTO> saveAction
             (@Valid @RequestBody final ActionRequestDTO actionRequestDTO) {
 
-        return status(HttpStatus.CREATED).body(mapper.actionToActionResponseDTO(
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.actionToActionResponseDTO(
                 service.save(mapper.actionRequestDtoToAction(actionRequestDTO))));
     }
 
@@ -57,7 +57,7 @@ public class ActionController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ActionRequestDTO actionRequestDTO) {
 
-        return status(HttpStatus.OK).body(mapper.actionToActionResponseDTO
+        return ResponseEntity.ok().body(mapper.actionToActionResponseDTO
                 (service.update(id, mapper.actionRequestDtoToAction(actionRequestDTO))));
 
     }

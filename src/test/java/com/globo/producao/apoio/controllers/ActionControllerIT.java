@@ -50,7 +50,7 @@ public class ActionControllerIT extends BaseTest {
     @DisplayName("Should return list actions with success.")
     public void shouldReturnListActionWithSuccess() throws Exception {
 
-        doReturn(List.of(ActionFaker.getAction())).when(service).findAll();
+        doReturn(List.of(ActionFaker.getAction())).when(service).findAllAction();
 
         mockMvc.perform(get(URI_LIST_ACTION)).andExpect(status().isOk());
     }

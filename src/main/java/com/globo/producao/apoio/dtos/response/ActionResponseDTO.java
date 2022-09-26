@@ -21,7 +21,9 @@ public class ActionResponseDTO implements Serializable {
 
     private String description;
 
-    private LocalDateTime reviewDate;
+    private LocalDateTime reviewTime;
+
+    private LocalDateTime updateTime;
 
     private LocalDateTime startTime;
 

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,6 +41,7 @@ public class ActionServiceImpl implements ActionService {
             action.setProduct(productService.save(action.getProduct()));
             action.setAgency(agencyService.save(action.getAgency()));
             action.setClient(clientService.save(action.getClient()));
+            action.setReviewTime(LocalDateTime.now());
             return repository.save(action);
 
         } else {
@@ -62,13 +64,14 @@ public class ActionServiceImpl implements ActionService {
     @SneakyThrows
     public Action update(Long actionId, Action action) {
 
-        var actionDB = repository.findById(actionId).orElseThrow(() -> new NoEntityException(actionId.toString()));
+        var actionDB = repository.findById(actionId)
+                .orElseThrow(() -> new NoEntityException(actionId.toString()));
 
         try {
             actionDB.setId(actionId);
             actionDB.setTypeAction(action.getTypeAction());
             actionDB.setDescription(action.getDescription());
-            actionDB.setReviewTime(action.getReviewTime());
+            actionDB.setUpdateTime(action.getUpdateTime());
             actionDB.setStartTime(action.getStartTime());
             actionDB.setEndTime(action.getEndTime());
             actionDB.setDuration(Duration(action));

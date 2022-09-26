@@ -37,7 +37,7 @@ public class ProgramController {
     @GetMapping
     public ResponseEntity<List<ProgramResponseDTO>> getPrograms() throws FindAllDataException {
 
-        return status(HttpStatus.OK).body(mapper
+        return ResponseEntity.ok().body(mapper
                 .programListToProgramResponseDtoList(new HashSet<>(service.findAll())));
 
     }
@@ -46,7 +46,7 @@ public class ProgramController {
     public ResponseEntity<ProgramResponseDTO> getProgramById
             (@PathVariable final Long id) throws FindDataException {
 
-        return status(HttpStatus.OK).body(mapper
+        return ResponseEntity.ok().body(mapper
                 .programToProgramResponseDTO(service.findById(id)));
 
     }
@@ -56,7 +56,7 @@ public class ProgramController {
     public ResponseEntity<ProgramResponseDTO> saveProgram
             (@Valid @RequestBody final ProgramRequestDTO programRequestDto) throws InsertDataException, FindDataException {
 
-        return status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.programToProgramResponseDTO(
                 service.save(mapper.programRequestDtoToProgram(programRequestDto))));
     }
 
@@ -65,7 +65,7 @@ public class ProgramController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final ProgramRequestDTO programRequestDto) throws UpdateDataException {
 
-        return status(HttpStatus.OK).body(mapper.programToProgramResponseDTO
+        return ResponseEntity.ok().body(mapper.programToProgramResponseDTO
                 (service.Update(id, mapper.programRequestDtoToProgram(programRequestDto))));
 
     }

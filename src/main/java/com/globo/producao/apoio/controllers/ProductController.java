@@ -43,7 +43,7 @@ public class ProductController {
     public ResponseEntity<ProductResponseDTO> saveProduct
             (@Valid @RequestBody final ProductRequestDTO productRequestDTO) throws InsertDataException {
 
-        return status(HttpStatus.CREATED).body(mapper.productToProductResponseDTO(
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.productToProductResponseDTO(
                 service.save(mapper.productRequestDTOToProduct(productRequestDTO))));
 
     }

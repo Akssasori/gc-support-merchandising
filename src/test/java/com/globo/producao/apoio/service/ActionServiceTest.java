@@ -92,7 +92,7 @@ public class ActionServiceTest extends BaseTest {
     public void shouldReturnListAction() throws Exception {
 
         doReturn(List.of(ActionFaker.getAction())).when(actionRepository).findAll();
-        List<Action> response = actionService.findAll();
+        List<Action> response = actionService.findAllAction();
 
         assertNotNull(response);
 
