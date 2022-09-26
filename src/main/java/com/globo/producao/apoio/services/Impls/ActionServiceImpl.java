@@ -80,6 +80,7 @@ public class ActionServiceImpl implements ActionService {
             actionDB.setClient(action.getClient());
             actionDB.setProduct(action.getProduct());
             actionDB.setPayTVFlag(action.getPayTVFlag());
+            actionDB.setUpdateTime(LocalDateTime.now());
             return repository.save(actionDB);
         } catch (Exception e) {
             throw new FindDataException(e.getMessage());
