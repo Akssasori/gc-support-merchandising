@@ -12,6 +12,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @EntityGraph(attributePaths = {"action"})
     Optional<Client> findByIdSiscom(Long idSiscom);
+
     @EntityGraph(attributePaths = {"action"})
     Optional<Client> findByName (String name);
 }

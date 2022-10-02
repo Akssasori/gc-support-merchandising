@@ -38,7 +38,7 @@ public class AgencyController {
     @GetMapping
     public ResponseEntity<List<AgencyResponseDTO>> getAgencies() {
 
-        return status(HttpStatus.OK).body(mapper.agencyListToAgencyResponseDTO(new HashSet<>(service.findAll())));
+        return ResponseEntity.ok().body(mapper.agencyListToAgencyResponseDTO(new HashSet<>(service.findAll())));
 
     }
 
@@ -46,7 +46,7 @@ public class AgencyController {
     public ResponseEntity<AgencyResponseDTO> getAgencyById
             (@PathVariable final Long id){
 
-        return status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findById(id)));
+        return ResponseEntity.ok().body(mapper.agencyToAgencyResponseDTO(service.findById(id)));
 
     }
 
@@ -55,7 +55,7 @@ public class AgencyController {
     public ResponseEntity<AgencyResponseDTO> createAgency
             (@Valid @RequestBody final AgencyRequestDTO agencyRequestDTO) throws InsertDataException {
 
-        return status(HttpStatus.CREATED).body(mapper.agencyToAgencyResponseDTO(
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.agencyToAgencyResponseDTO(
                 service.save(mapper.agencyRequestDTOToAgency(agencyRequestDTO))));
     }
 
@@ -64,7 +64,7 @@ public class AgencyController {
             @PathVariable(value = "id") final Long id,
             @Valid @RequestBody final AgencyRequestDTO agencyRequestDTO){
 
-        return status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO
+        return ResponseEntity.ok().body(mapper.agencyToAgencyResponseDTO
                 (service.update(id, mapper.agencyRequestDTOToAgency(agencyRequestDTO))));
 
     }
@@ -83,7 +83,7 @@ public class AgencyController {
     public ResponseEntity<AgencyResponseDTO> getAgencyByIdSiscom
             (@PathVariable final Long idSiscom){
 
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.agencyToAgencyResponseDTO(service.findByIdSiscom(idSiscom)));
+        return ResponseEntity.ok().body(mapper.agencyToAgencyResponseDTO(service.findByIdSiscom(idSiscom)));
 
     }
 

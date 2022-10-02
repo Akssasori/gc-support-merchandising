@@ -61,14 +61,14 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public Action findById(Long ActionId) {
-        return repository.findById(ActionId).orElseThrow(() -> new NoEntityException(ActionId.toString()));
+        return repository.findByIdAllData(ActionId).orElseThrow(() -> new NoEntityException(ActionId.toString()));
     }
 
     @Override
     @SneakyThrows
     public Action update(Long actionId, Action action) {
 
-        var actionDB = repository.findById(actionId)
+        var actionDB = repository.findByIdAllData(actionId)
                 .orElseThrow(() -> new NoEntityException(actionId.toString()));
 
         try {
@@ -109,7 +109,7 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public Page<Action> pageAction(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return repository.findAll(pageable);
+        return repository.findAllActionPageable(pageable);
     }
 
     private Duration Duration(final Action action) {
